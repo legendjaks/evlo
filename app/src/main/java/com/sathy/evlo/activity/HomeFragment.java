@@ -1,13 +1,13 @@
 package com.sathy.evlo.activity;
 
 import android.app.Activity;
-        import android.os.Bundle;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-        import android.view.LayoutInflater;
-        import android.view.View;
-        import android.view.ViewGroup;
-import android.widget.ImageButton;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 public class HomeFragment extends Fragment {
@@ -21,8 +21,6 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
     }
 
     @Override
@@ -35,9 +33,11 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Toast.makeText(view.getContext(), "Hello FAB", Toast.LENGTH_SHORT).show();
+
+                Intent myIntent = new Intent(getActivity(), NewExpenseActivity.class);
+                startActivity(myIntent);
             }
         });
-
     }
 
     @Override

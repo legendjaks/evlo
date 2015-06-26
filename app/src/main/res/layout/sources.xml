@@ -1,22 +1,26 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             tools:context="com.sathy.evlo.activity.HomeFragment">
+             tools:context="com.sathy.evlo.activity.fragment.HomeFragment">
+
 <TextView
-    android:id="@+id/TextAct1"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_alignParentLeft="true"
     android:layout_alignParentStart="true"
     android:layout_centerVertical="true"
     android:layout_gravity="center"
-    android:text="Home Page"
+    android:text="@string/title_sources"
     android:textSize="25dp" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         android:layout_margin="15dp"
+        app:borderWidth="0dp"
+        app:elevation="4dp"
+        app:backgroundTint="@color/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right|bottom"

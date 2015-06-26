@@ -1,4 +1,4 @@
-package com.sathy.evlo.activity;
+package com.sathy.evlo.activity.fragment;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -8,13 +8,15 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-public class HomeFragment extends Fragment {
+import com.sathy.evlo.activity.NewExpenseActivity;
+import com.sathy.evlo.activity.R;
 
-    private FloatingActionButton addExpense;
+public class TagsFragment extends Fragment {
 
-    public HomeFragment() {
+    private FloatingActionButton add;
+
+    public TagsFragment() {
         // Required empty public constructor
     }
 
@@ -28,12 +30,10 @@ public class HomeFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         final View view = getView();
-        addExpense = (FloatingActionButton) view.findViewById(R.id.fab);
-        addExpense.setOnClickListener(new View.OnClickListener() {
+        add = (FloatingActionButton) view.findViewById(R.id.fab);
+        add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(view.getContext(), "Hello FAB", Toast.LENGTH_SHORT).show();
-
                 Intent myIntent = new Intent(getActivity(), NewExpenseActivity.class);
                 startActivity(myIntent);
             }
@@ -43,7 +43,7 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_home, container, false);
+        View rootView = inflater.inflate(R.layout.tags, container, false);
         // Inflate the layout for this fragment
         return rootView;
     }

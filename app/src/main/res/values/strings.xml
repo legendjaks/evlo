@@ -5,21 +5,9 @@
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
 
-    <string name="nav_item_home">Home</string>
-    <string name="nav_item_expenses">Expenses</string>
-    <string name="nav_item_incomes">Incomes</string>
-    <string name="nav_item_tags">Tags</string>
-
-    <!-- navigation drawer item labels  -->
-    <string-array name="nav_drawer_labels">
-        <item>@string/nav_item_home</item>
-        <item>@string/nav_item_expenses</item>
-        <item>@string/nav_item_incomes</item>
-        <item>@string/nav_item_tags</item>
-    </string-array>
-
     <string name="title_expenses">Expenses</string>
     <string name="title_incomes">Incomes</string>
     <string name="title_tags">Tags</string>
     <string name="title_home">Home</string>
+    <string name="title_sources">Sources</string>
 </resources>

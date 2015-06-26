@@ -1,50 +1,57 @@
 package com.sathy.evlo.activity;
 
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-public class MainActivity extends ActionBarActivity implements FragmentDrawer.FragmentDrawerListener {
+import com.sathy.evlo.activity.fragment.ExpensesFragment;
+import com.sathy.evlo.activity.fragment.HomeFragment;
+import com.sathy.evlo.activity.fragment.IncomesFragment;
+import com.sathy.evlo.activity.fragment.SourcesFragment;
+import com.sathy.evlo.activity.fragment.TagsFragment;
+
+public class MainActivity extends ActionBarActivity {
 
     private static String TAG = MainActivity.class.getSimpleName();
 
-    private Toolbar mToolbar;
-    private FragmentDrawer drawerFragment;
-
+    private Toolbar toolbar;
+    private DrawerLayout drawerLayout;
+    private NavigationView navigation;
+    private ActionBarDrawerToggle drawerToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.main);
 
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        navigation = (NavigationView) findViewById(R.id.navigation_view);
 
-        setSupportActionBar(mToolbar);
+        setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        drawerFragment = (FragmentDrawer)
-                getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
-        drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
-        drawerFragment.setDrawerListener(this);
+        drawerToggle = new DrawerToggle();
+        // Set the drawer_items toggle as the DrawerListener
+        drawerLayout.setDrawerListener(drawerToggle);
 
-
-        // display the first navigation drawer view on app launch
-        displayView(0);
+        navigation.setNavigationItemSelectedListener(new SelectedListener());
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.search, menu);
         return true;
     }
 
@@ -55,7 +62,7 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        if(id == R.id.action_search){
+        if (id == R.id.action_search) {
             Toast.makeText(getApplicationContext(), "Search action is selected!", Toast.LENGTH_SHORT).show();
             return true;
         }
@@ -64,26 +71,48 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
     }
 
     @Override
-    public void onDrawerItemSelected(View view, int position) {
-        displayView(position);
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        // Sync the toggle state after onRestoreInstanceState has occurred.
+        drawerToggle.syncState();
     }
 
-    private void displayView(int position) {
+    private class SelectedListener implements NavigationView.OnNavigationItemSelectedListener {
+
+        @Override
+        public boolean onNavigationItemSelected(MenuItem menuItem) {
+
+            drawerLayout.closeDrawer(navigation);
+            showFragment(menuItem.getItemId());
+            menuItem.setChecked(true);
+            return true;
+        }
+    }
+
+    private void showFragment(int id) {
         Fragment fragment = null;
         String title = getString(R.string.app_name);
-        switch (position) {
-            case 0:
+        switch (id) {
+            case R.id.nav_home:
                 fragment = new HomeFragment();
                 title = getString(R.string.title_home);
                 break;
-            /*case 1:
-                fragment = new FriendsFragment();
-                title = getString(R.string.title_friends);
+            case R.id.nav_expenses:
+                fragment = new ExpensesFragment();
+                title = getString(R.string.title_expenses);
                 break;
-            case 2:
-                fragment = new MessagesFragment();
-                title = getString(R.string.title_messages);
-                break;*/
+            case R.id.nav_incomes:
+                fragment = new IncomesFragment();
+                title = getString(R.string.title_incomes);
+                break;
+            case R.id.nav_tags:
+                fragment = new TagsFragment();
+                title = getString(R.string.title_tags);
+                break;
+            case R.id.nav_sources:
+                fragment = new SourcesFragment();
+                title = getString(R.string.title_sources);
+                break;
             default:
                 break;
         }
@@ -91,11 +120,39 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
         if (fragment != null) {
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.container_body, fragment);
+            fragmentTransaction.replace(R.id.body, fragment);
             fragmentTransaction.commit();
+        }
+        getSupportActionBar().setTitle(title);
+    }
 
-            // set the toolbar title
-            getSupportActionBar().setTitle(title);
+    private class DrawerToggle extends ActionBarDrawerToggle {
+
+        public DrawerToggle() {
+            super(MainActivity.this, drawerLayout,
+                    toolbar, R.string.drawer_open, R.string.drawer_close);
+        }
+
+        /**
+         * Called when a drawer_items has settled in a completely closed state.
+         */
+        public void onDrawerClosed(View view) {
+            super.onDrawerClosed(view);
+            invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+        }
+
+        /**
+         * Called when a drawer_items has settled in a completely open state.
+         */
+        public void onDrawerOpened(View drawerView) {
+            super.onDrawerOpened(drawerView);
+            invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+        }
+
+        @Override
+        public void onDrawerSlide(View drawerView, float slideOffset) {
+            super.onDrawerSlide(drawerView, slideOffset);
+            toolbar.setAlpha(1 - slideOffset / 2);
         }
     }
 }

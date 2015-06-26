@@ -33,6 +33,7 @@ public class FragmentDrawer extends Fragment {
     private NavigationDrawerAdapter adapter;
     private View containerView;
     private static String[] titles = null;
+    private static int[] icons = null;
     private FragmentDrawerListener drawerListener;
 
     public FragmentDrawer() {
@@ -46,11 +47,11 @@ public class FragmentDrawer extends Fragment {
     public static List<NavDrawerItem> getData() {
         List<NavDrawerItem> data = new ArrayList<>();
 
-
         // preparing navigation drawer items
         for (int i = 0; i < titles.length; i++) {
             NavDrawerItem navItem = new NavDrawerItem();
             navItem.setTitle(titles[i]);
+            navItem.setIcon(icons[i]);
             data.add(navItem);
         }
         return data;
@@ -62,6 +63,7 @@ public class FragmentDrawer extends Fragment {
 
         // drawer labels
         titles = getActivity().getResources().getStringArray(R.array.nav_drawer_labels);
+        icons = new int[]{R.drawable.ic_home, R.drawable.ic_expense, R.drawable.ic_income, R.drawable.ic_tag};
     }
 
     @Override
@@ -89,7 +91,6 @@ public class FragmentDrawer extends Fragment {
 
         return layout;
     }
-
 
     public void setUp(int fragmentId, DrawerLayout drawerLayout, final Toolbar toolbar) {
         containerView = getActivity().findViewById(fragmentId);

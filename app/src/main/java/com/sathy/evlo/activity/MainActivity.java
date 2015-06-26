@@ -1,5 +1,6 @@
 package com.sathy.evlo.activity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -18,7 +19,7 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
 
     private Toolbar mToolbar;
     private FragmentDrawer drawerFragment;
-
+    private View selectedRow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +66,11 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
 
     @Override
     public void onDrawerItemSelected(View view, int position) {
+        if(selectedRow != null)
+            selectedRow.setBackgroundColor(Color.WHITE);
+        selectedRow = view;
+        selectedRow.setBackgroundResource(R.color.colorSelectedRow);
+
         displayView(position);
     }
 
@@ -77,8 +83,8 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
                 title = getString(R.string.title_home);
                 break;
             /*case 1:
-                fragment = new FriendsFragment();
-                title = getString(R.string.title_friends);
+                fragment = new ItemFragment();
+                title = getString(R.string.title_expenses);
                 break;
             case 2:
                 fragment = new MessagesFragment();

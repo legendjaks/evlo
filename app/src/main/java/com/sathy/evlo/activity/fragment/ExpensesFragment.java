@@ -34,8 +34,8 @@ public class ExpensesFragment extends Fragment {
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent myIntent = new Intent(getActivity(), NewExpenseActivity.class);
-                startActivity(myIntent);
+                Intent intent = new Intent(getActivity(), NewExpenseActivity.class);
+                startActivity(intent);
             }
         });
     }

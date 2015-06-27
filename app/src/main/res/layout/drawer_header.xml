@@ -4,6 +4,13 @@
                 android:layout_alignParentTop="true"
                 android:background="@color/primary">
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src=""
+
+/>
+
     <TextView
         android:id="@+id/headerTitle"
         android:layout_width="wrap_content"

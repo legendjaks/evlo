@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.sathy.evlo.activity.NewExpenseActivity;
+import com.sathy.evlo.activity.NewIncomeActivity;
 import com.sathy.evlo.activity.R;
 
 public class IncomesFragment extends Fragment {
@@ -34,8 +35,8 @@ public class IncomesFragment extends Fragment {
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent myIntent = new Intent(getActivity(), NewExpenseActivity.class);
-                startActivity(myIntent);
+                Intent intent = new Intent(getActivity(), NewIncomeActivity.class);
+                startActivity(intent);
             }
         });
     }

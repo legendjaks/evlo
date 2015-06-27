@@ -20,7 +20,7 @@ import java.util.Calendar;
 /**
  * Created by sathy on 24/6/15.
  */
-public class NewExpenseActivity extends AppCompatActivity {
+public class NewIncomeActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
     private EditText date;
@@ -32,7 +32,7 @@ public class NewExpenseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.new_expense);
+        setContentView(R.layout.new_income);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         date = (EditText) findViewById(R.id.date);

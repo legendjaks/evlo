@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,7 +21,7 @@ import com.sathy.evlo.activity.fragment.IncomesFragment;
 import com.sathy.evlo.activity.fragment.SourcesFragment;
 import com.sathy.evlo.activity.fragment.TagsFragment;
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends AppCompatActivity {
 
     private static String TAG = MainActivity.class.getSimpleName();
 
@@ -46,6 +47,8 @@ public class MainActivity extends ActionBarActivity {
         drawerLayout.setDrawerListener(drawerToggle);
 
         navigation.setNavigationItemSelectedListener(new SelectedListener());
+
+        showFragment(R.id.nav_home);
     }
 
     @Override

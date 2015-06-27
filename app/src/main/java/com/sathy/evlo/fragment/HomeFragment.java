@@ -1,4 +1,4 @@
-package com.sathy.evlo.activity.fragment;
+package com.sathy.evlo.fragment;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -10,14 +10,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.sathy.evlo.activity.NewExpenseActivity;
-import com.sathy.evlo.activity.NewIncomeActivity;
 import com.sathy.evlo.activity.R;
 
-public class IncomesFragment extends Fragment {
+public class HomeFragment extends Fragment {
 
-    private FloatingActionButton add;
+    private FloatingActionButton addExpense;
 
-    public IncomesFragment() {
+    public HomeFragment() {
         // Required empty public constructor
     }
 
@@ -31,12 +30,12 @@ public class IncomesFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         final View view = getView();
-        add = (FloatingActionButton) view.findViewById(R.id.fab);
-        add.setOnClickListener(new View.OnClickListener() {
+        addExpense = (FloatingActionButton) view.findViewById(R.id.fab);
+        addExpense.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), NewIncomeActivity.class);
-                startActivity(intent);
+                Intent myIntent = new Intent(getActivity(), NewExpenseActivity.class);
+                startActivity(myIntent);
             }
         });
     }
@@ -44,7 +43,7 @@ public class IncomesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.incomes, container, false);
+        View rootView = inflater.inflate(R.layout.home, container, false);
         // Inflate the layout for this fragment
         return rootView;
     }

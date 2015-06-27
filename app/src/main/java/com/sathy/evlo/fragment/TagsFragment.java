@@ -1,4 +1,4 @@
-package com.sathy.evlo.activity.fragment;
+package com.sathy.evlo.fragment;
 
 import android.app.Activity;
 import android.content.Intent;

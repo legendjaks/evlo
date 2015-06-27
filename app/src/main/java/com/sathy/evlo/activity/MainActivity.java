@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -15,11 +14,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.sathy.evlo.activity.fragment.ExpensesFragment;
-import com.sathy.evlo.activity.fragment.HomeFragment;
-import com.sathy.evlo.activity.fragment.IncomesFragment;
-import com.sathy.evlo.activity.fragment.SourcesFragment;
-import com.sathy.evlo.activity.fragment.TagsFragment;
+import com.sathy.evlo.fragment.ExpensesFragment;
+import com.sathy.evlo.fragment.HomeFragment;
+import com.sathy.evlo.fragment.IncomesFragment;
+import com.sathy.evlo.fragment.SourcesFragment;
+import com.sathy.evlo.fragment.TagsFragment;
 
 public class MainActivity extends AppCompatActivity {
 

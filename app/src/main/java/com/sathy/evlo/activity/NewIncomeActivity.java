@@ -14,6 +14,9 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.sathy.evlo.dao.IncomeDao;
+import com.sathy.evlo.data.Income;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -24,9 +27,14 @@ public class NewIncomeActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
     private EditText date;
+    private EditText amount;
+    private EditText notes;
 
     private SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
     private Calendar calendar = Calendar.getInstance();
+    private IncomeDao incomeDao;
+
+    private long id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +42,14 @@ public class NewIncomeActivity extends AppCompatActivity {
 
         setContentView(R.layout.new_income);
 
+        id = 0;
+        incomeDao = new IncomeDao(this);
+
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         date = (EditText) findViewById(R.id.date);
+        amount = (EditText) findViewById(R.id.amount);
+        notes = (EditText)findViewById(R.id.notes);
+
         date.setFocusable(false);
 
         setSupportActionBar(toolbar);
@@ -65,11 +79,36 @@ public class NewIncomeActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.action_save) {
-            Toast.makeText(getApplicationContext(), "Save action is selected!", Toast.LENGTH_SHORT).show();
+            if(saveIncome())
+                this.finish();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private boolean saveIncome() {
+
+        String incomedate = date.getText().toString();
+        if(incomedate.equals("Today")){
+            incomedate = sdf.format(calendar.getTime());
+        }
+
+        String note = notes.getText().toString();
+        if (amount.getText().toString().trim().length() == 0)
+            return false;
+        double incomeAmount = Double.parseDouble(amount.getText().toString());
+        if (incomeAmount == 0.0)
+            return false;
+
+        Income income = new Income(id, incomedate, incomeAmount, note);
+        if (id == 0) {
+            id = incomeDao.create(income);
+        } else {
+            incomeDao.update(income);
+        }
+
+        return true;
     }
 
     public class DatePickerFragment extends DialogFragment

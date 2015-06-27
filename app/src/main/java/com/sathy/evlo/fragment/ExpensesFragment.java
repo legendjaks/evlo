@@ -1,4 +1,4 @@
-package com.sathy.evlo.activity.fragment;
+package com.sathy.evlo.fragment;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -12,11 +12,11 @@ import android.view.ViewGroup;
 import com.sathy.evlo.activity.NewExpenseActivity;
 import com.sathy.evlo.activity.R;
 
-public class SourcesFragment extends Fragment {
+public class ExpensesFragment extends Fragment {
 
     private FloatingActionButton add;
 
-    public SourcesFragment() {
+    public ExpensesFragment() {
         // Required empty public constructor
     }
 
@@ -34,8 +34,8 @@ public class SourcesFragment extends Fragment {
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent myIntent = new Intent(getActivity(), NewExpenseActivity.class);
-                startActivity(myIntent);
+                Intent intent = new Intent(getActivity(), NewExpenseActivity.class);
+                startActivity(intent);
             }
         });
     }
@@ -43,7 +43,7 @@ public class SourcesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.sources, container, false);
+        View rootView = inflater.inflate(R.layout.expenses, container, false);
         // Inflate the layout for this fragment
         return rootView;
     }

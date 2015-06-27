@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 
 import com.sathy.evlo.dao.IncomeDao;
 import com.sathy.evlo.data.Income;
+import com.sathy.evlo.data.TableEntity;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -62,6 +64,16 @@ public class NewIncomeActivity extends AppCompatActivity {
                 newFragment.show(getFragmentManager(), "datePicker");
             }
         });
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            id = extras.getLong(TableEntity.Id);
+            setTitle(R.string.edit_income);
+        } else {
+            setTitle(R.string.new_income);
+        }
+
+        populate();
     }
 
     @Override
@@ -87,10 +99,21 @@ public class NewIncomeActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    private void populate() {
+        if (id == 0) {
+            return;
+        }
+
+        Income income = (Income) incomeDao.read(id);
+        date.setText(income.getIncomeDate());
+        amount.setText(String.valueOf(income.getAmount()));
+        notes.setText(income.getNotes());
+    }
+
     private boolean saveIncome() {
 
         String incomedate = date.getText().toString();
-        if(incomedate.equals("Today")){
+        if(incomedate.length() == 0){
             incomedate = sdf.format(calendar.getTime());
         }
 

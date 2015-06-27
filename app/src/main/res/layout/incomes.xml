@@ -5,15 +5,19 @@
              android:layout_height="match_parent"
              tools:context="com.sathy.evlo.fragment.HomeFragment">
 
-<TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_alignParentLeft="true"
-    android:layout_alignParentStart="true"
-    android:layout_centerVertical="true"
-    android:layout_gravity="center"
-    android:text="@string/title_incomes"
-    android:textSize="25dp" />
+    <ListView
+        android:id="@android:id/list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp" />
+
+    <TextView
+        android:id="@android:id/empty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="@string/empty"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

@@ -14,4 +14,6 @@
     <string name="today">Today</string>
     <string name="new_expense">New Expense</string>
     <string name="new_income">New Income</string>
+    <string name="edit_income">Edit Income</string>
+    <string name="empty">Empty</string>
 </resources>

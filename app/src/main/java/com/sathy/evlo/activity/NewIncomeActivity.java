@@ -3,6 +3,9 @@ package com.sathy.evlo.activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.content.ContentValues;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
@@ -18,7 +21,9 @@ import android.widget.Toast;
 import com.sathy.evlo.dao.IncomeDao;
 import com.sathy.evlo.data.Income;
 import com.sathy.evlo.data.TableEntity;
+import com.sathy.evlo.provider.DatabaseProvider;
 
+import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -34,18 +39,17 @@ public class NewIncomeActivity extends AppCompatActivity {
 
     private SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
     private Calendar calendar = Calendar.getInstance();
-    private IncomeDao incomeDao;
 
-    private long id;
+    private Uri uri;
+
+    private static final String[] tableColumns = new String[] { Income.Id, Income.IncomeDate, Income.Amount, Income.Notes
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.new_income);
-
-        id = 0;
-        incomeDao = new IncomeDao(this);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         date = (EditText) findViewById(R.id.date);
@@ -67,13 +71,11 @@ public class NewIncomeActivity extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            id = extras.getLong(TableEntity.Id);
             setTitle(R.string.edit_income);
-        } else {
+            uri = extras.getParcelable(DatabaseProvider.CONTENT_ITEM_TYPE);
+            populate();
+        }else
             setTitle(R.string.new_income);
-        }
-
-        populate();
     }
 
     @Override
@@ -91,7 +93,7 @@ public class NewIncomeActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.action_save) {
-            if(saveIncome())
+            if(save())
                 this.finish();
             return true;
         }
@@ -100,17 +102,28 @@ public class NewIncomeActivity extends AppCompatActivity {
     }
 
     private void populate() {
-        if (id == 0) {
+        if (uri == null) {
             return;
         }
 
-        Income income = (Income) incomeDao.read(id);
-        date.setText(income.getIncomeDate());
-        amount.setText(String.valueOf(income.getAmount()));
-        notes.setText(income.getNotes());
+        Cursor cursor = getContentResolver().query(uri, tableColumns, null, null,
+                null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+
+            date.setText(cursor.getString(cursor
+                    .getColumnIndexOrThrow(Income.IncomeDate)));
+            amount.setText(cursor.getString(cursor
+                    .getColumnIndexOrThrow(Income.Amount)));
+            notes.setText(cursor.getString(cursor
+                    .getColumnIndexOrThrow(Income.Notes)));
+
+            // always close the cursor
+            cursor.close();
+        }
     }
 
-    private boolean saveIncome() {
+    private boolean save() {
 
         String incomedate = date.getText().toString();
         if(incomedate.length() == 0){
@@ -124,11 +137,15 @@ public class NewIncomeActivity extends AppCompatActivity {
         if (incomeAmount == 0.0)
             return false;
 
-        Income income = new Income(id, incomedate, incomeAmount, note);
-        if (id == 0) {
-            id = incomeDao.create(income);
+        ContentValues values = new ContentValues();
+        values.put(Income.IncomeDate, incomedate);
+        values.put(Income.Amount, incomeAmount);
+        values.put(Income.Notes, note);
+
+        if (uri == null) {
+            uri = getContentResolver().insert(DatabaseProvider.CONTENT_URI, values);
         } else {
-            incomeDao.update(income);
+            getContentResolver().update(uri, values, null, null);
         }
 
         return true;

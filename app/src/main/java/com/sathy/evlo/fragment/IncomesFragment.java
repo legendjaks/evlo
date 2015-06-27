@@ -3,6 +3,7 @@ package com.sathy.evlo.fragment;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -139,9 +140,12 @@ public class IncomesFragment extends ListFragment implements LoaderManager.Loade
     }
 
     private void editIncome(long id) {
+
+        Uri uri = Uri.parse(DatabaseProvider.CONTENT_URI + "/" + id);
         Intent intent = new Intent(getActivity(), NewIncomeActivity.class);
-        intent.putExtra(TableEntity.Id, id);
-        startActivityForResult(intent, 0);
+        intent.putExtra(DatabaseProvider.CONTENT_ITEM_TYPE, uri);
+        //startActivityForResult(intent, 0);
+        startActivity(intent);
     }
 
     @Override

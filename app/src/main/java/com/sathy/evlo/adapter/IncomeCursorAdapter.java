@@ -37,7 +37,7 @@ public class IncomeCursorAdapter extends CursorAdapter {
 
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
-        View view = inflater.inflate(R.layout.income_row, parent, false);
+        View view = inflater.inflate(R.layout.income_item_row, parent, false);
         ViewHolder holder = new ViewHolder(view);
         view.setTag(holder);
         return view;
@@ -54,7 +54,7 @@ public class IncomeCursorAdapter extends CursorAdapter {
 
         holder.id.setText(id);
         holder.date.setText(TextFormat.toDateText(date));
-        holder.amount.setText(TextFormat.toDecimalText(amount));
+        holder.amount.setText(context.getString(R.string.rs) + " " + TextFormat.toDecimalText(amount));
         holder.notes.setText(note);
 
         update(holder);

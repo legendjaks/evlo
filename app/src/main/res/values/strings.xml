@@ -16,4 +16,5 @@
     <string name="new_income">New Income</string>
     <string name="edit_income">Edit Income</string>
     <string name="empty">Empty</string>
+    <string name="rs">\u20B9</string>
 </resources>

@@ -23,6 +23,10 @@ public class TextFormat {
         return decimalformat.format(Double.parseDouble(value));
     }
 
+    public static String toDisplayDateText(Date date){
+        return isdf.format(date);
+    }
+
     public static String toDateText(String value){
 
         Calendar calendar = Calendar.getInstance();

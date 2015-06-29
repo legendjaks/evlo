@@ -5,7 +5,7 @@ import android.content.ContentValues;
 /**
  * Created by sathy on 27/6/15.
  */
-public class TableEntity {
+public abstract class TableEntity {
 
     public static final String Id = "_id";
     protected long id;
@@ -22,9 +22,5 @@ public class TableEntity {
         this.id = id;
     }
 
-    public ContentValues getContentValues() {
-        ContentValues values = new ContentValues();
-        values.put(Id, id);
-        return values;
-    }
+    public abstract ContentValues getContentValues();
 }

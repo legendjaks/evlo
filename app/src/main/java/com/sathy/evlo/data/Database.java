@@ -19,31 +19,32 @@ public class Database extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase database) {
 
-        /*String createTags = CreateTable + Tag.TableName
-                + "(_id integer primary key autoincrement, tagOrder integer not null,  name text not null)";
-        String createPaymentTypes = CreateTable + PaymentType.TableName
+        String createTag = CreateTable + Tag.TableName
+                + "(_id integer primary key autoincrement, tag_order integer not null,  name text not null)";
+        String createSource = CreateTable + Source.TableName
                 + "(_id integer primary key autoincrement, name text not null)";
-        String createExpenses = CreateTable
+        /*String createExpenses = CreateTable
                 + Expense.TableName
                 + "(_id integer primary key autoincrement, expensedate integer not null, paymenttype integer not null, amount real not null, comments text)";
         String createExpenseTags = CreateTable
                 + ExpenseTag.TableName
                 + "(expenseId integer not null, tagId integer not null, constraint expenseTags_pk primary key(expenseId, tagId))";*/
-        String createIncomes = CreateTable
+        String createIncome = CreateTable
                 + Income.TableName
-                + "(_id integer primary key autoincrement, incomedate integer not null, amount real not null, notes text)";
+                + "(_id integer primary key autoincrement, income_date integer not null, amount real not null, source integer not null, notes text)";
 
-        /*database.execSQL(createTags);
-        database.execSQL(createPaymentTypes);
+        database.execSQL(createTag);
+        database.execSQL(createSource);
+        /*
         database.execSQL(createExpenses);
         database.execSQL(createExpenseTags);*/
-        database.execSQL(createIncomes);
+        database.execSQL(createIncome);
 
-        /*database.execSQL("INSERT INTO paymenttypes (name) VALUES ('Cash') ");
-        database.execSQL("INSERT INTO paymenttypes (name) VALUES ('Credit Card') ");
-        database.execSQL("INSERT INTO paymenttypes (name) VALUES ('Debit Card') ");
-        database.execSQL("INSERT INTO paymenttypes (name) VALUES ('Cheque') ");
-        database.execSQL("INSERT INTO paymenttypes (name) VALUES ('Wire Transfer') ");*/
+        database.execSQL("INSERT INTO source (name) VALUES ('Cash') ");
+        database.execSQL("INSERT INTO source (name) VALUES ('Credit Card') ");
+        database.execSQL("INSERT INTO source (name) VALUES ('Debit Card') ");
+        database.execSQL("INSERT INTO source (name) VALUES ('Cheque') ");
+        database.execSQL("INSERT INTO source (name) VALUES ('Wire Transfer') ");
     }
 
     @Override

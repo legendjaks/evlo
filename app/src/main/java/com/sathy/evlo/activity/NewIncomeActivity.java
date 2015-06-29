@@ -14,14 +14,17 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.sathy.evlo.dao.IncomeDao;
 import com.sathy.evlo.data.Income;
 import com.sathy.evlo.data.TableEntity;
 import com.sathy.evlo.provider.DatabaseProvider;
+import com.sathy.evlo.util.TextFormat;
 
 import java.net.URI;
 import java.text.SimpleDateFormat;
@@ -35,14 +38,15 @@ public class NewIncomeActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private EditText date;
     private EditText amount;
+    private Spinner source;
     private EditText notes;
 
-    private SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
     private Calendar calendar = Calendar.getInstance();
 
     private Uri uri;
+    private int sourceId;
 
-    private static final String[] tableColumns = new String[] { Income.Id, Income.IncomeDate, Income.Amount, Income.Notes
+    private static final String[] tableColumns = new String[] { Income.Id, Income.IncomeDate, Income.Amount, Income.Source, Income.Notes
     };
 
     @Override
@@ -54,9 +58,11 @@ public class NewIncomeActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         date = (EditText) findViewById(R.id.date);
         amount = (EditText) findViewById(R.id.amount);
+        source = (Spinner) findViewById(R.id.source);
         notes = (EditText)findViewById(R.id.notes);
 
         date.setFocusable(false);
+        sourceId = 0;
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -64,6 +70,7 @@ public class NewIncomeActivity extends AppCompatActivity {
         date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 DialogFragment newFragment = new DatePickerFragment();
                 newFragment.show(getFragmentManager(), "datePicker");
             }
@@ -94,7 +101,7 @@ public class NewIncomeActivity extends AppCompatActivity {
 
         if (id == R.id.action_save) {
             if(save())
-                this.finish();
+              this.finish();
             return true;
         }
 
@@ -115,6 +122,7 @@ public class NewIncomeActivity extends AppCompatActivity {
                     .getColumnIndexOrThrow(Income.IncomeDate)));
             amount.setText(cursor.getString(cursor
                     .getColumnIndexOrThrow(Income.Amount)));
+
             notes.setText(cursor.getString(cursor
                     .getColumnIndexOrThrow(Income.Notes)));
 
@@ -125,21 +133,25 @@ public class NewIncomeActivity extends AppCompatActivity {
 
     private boolean save() {
 
-        String incomedate = date.getText().toString();
-        if(incomedate.length() == 0){
-            incomedate = sdf.format(calendar.getTime());
-        }
-
-        String note = notes.getText().toString();
         if (amount.getText().toString().trim().length() == 0)
             return false;
         double incomeAmount = Double.parseDouble(amount.getText().toString());
         if (incomeAmount == 0.0)
             return false;
 
+        String incomedate = date.getText().toString();
+        if(incomedate.length() == 0){
+            incomedate = TextFormat.toDisplayDateText(calendar.getTime());
+        }
+
+        Log.d("NIA", source.getSelectedItem().toString());
+
+        String note = notes.getText().toString();
+
         ContentValues values = new ContentValues();
         values.put(Income.IncomeDate, incomedate);
         values.put(Income.Amount, incomeAmount);
+        values.put(Income.Source, source.getSelectedItem().toString());
         values.put(Income.Notes, note);
 
         if (uri == null) {
@@ -170,7 +182,7 @@ public class NewIncomeActivity extends AppCompatActivity {
             calendar.set(Calendar.MONTH, month);
             calendar.set(Calendar.DAY_OF_MONTH, day);
 
-            date.setText(sdf.format(calendar.getTime()));
+            date.setText(TextFormat.toDisplayDateText(calendar.getTime()));
         }
     }
 }

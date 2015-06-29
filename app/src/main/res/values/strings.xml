@@ -15,6 +15,17 @@
     <string name="new_expense">New Expense</string>
     <string name="new_income">New Income</string>
     <string name="edit_income">Edit Income</string>
-    <string name="empty">Empty</string>
+    <string name="empty">EMPTY</string>
     <string name="rs">\u20B9</string>
+    <string name="amount">Amount</string>
+    <string name="source">Source</string>
+    <string name="notes">Notes</string>
+
+    <string-array name="income_sources">
+        <item>Salary</item>
+        <item>Interest</item>
+        <item>Assets</item>
+        <item>Repayment</item>
+        <item>Others</item>
+    </string-array>
 </resources>

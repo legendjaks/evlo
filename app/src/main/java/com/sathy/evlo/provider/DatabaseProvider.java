@@ -23,14 +23,14 @@ public class DatabaseProvider extends ContentProvider {
 
     private static final String AUTHORITY = "com.sathy.evlo.provider";
 
-    private static final String BASE_PATH = "incomes";
+    private static final String BASE_PATH = "income";
     public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY
             + "/" + BASE_PATH);
 
     public static final String CONTENT_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE
-            + "/incomes";
+            + "/income";
     public static final String CONTENT_ITEM_TYPE = ContentResolver.CURSOR_ITEM_BASE_TYPE
-            + "/incomes";
+            + "/income";
 
     private static final UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
     static {

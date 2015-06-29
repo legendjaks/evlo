@@ -7,13 +7,15 @@ import android.content.ContentValues;
  */
 public class Income extends TableEntity {
 
-    public static final String TableName = "incomes";
-    public static final String IncomeDate = "incomedate";
+    public static final String TableName = "income";
+    public static final String IncomeDate = "income_date";
     public static final String Amount = "amount";
+    public static final String Source = "source";
     public static final String Notes = "notes";
 
     private String incomeDate;
     private double amount;
+    private int source;
     private String notes;
 
     public Income() {
@@ -28,6 +30,14 @@ public class Income extends TableEntity {
         this.id = id;
         this.incomeDate = expenseDate;
         this.amount = amount;
+        this.notes = notes;
+    }
+
+    public Income(long id, String expenseDate, double amount, int source, String notes) {
+        this.id = id;
+        this.incomeDate = expenseDate;
+        this.amount = amount;
+        this.source = source;
         this.notes = notes;
     }
 
@@ -53,6 +63,14 @@ public class Income extends TableEntity {
 
     public void setNotes(String notes) {
         this.notes = notes;
+    }
+
+    public int getSource() {
+        return source;
+    }
+
+    public void setSource(int source) {
+        this.source = source;
     }
 
     @Override

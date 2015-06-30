@@ -1,35 +1,25 @@
 package com.sathy.evlo.activity;
 
-import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
 
-import com.sathy.evlo.dao.IncomeDao;
 import com.sathy.evlo.data.Income;
-import com.sathy.evlo.data.TableEntity;
 import com.sathy.evlo.fragment.DatePickerFragment;
 import com.sathy.evlo.listener.DateSetListener;
 import com.sathy.evlo.provider.DatabaseProvider;
 import com.sathy.evlo.util.TextFormat;
 
-import java.net.URI;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -60,7 +50,7 @@ public class NewIncomeActivity extends AppCompatActivity implements DateSetListe
         date = (EditText) findViewById(R.id.date);
         amount = (EditText) findViewById(R.id.amount);
         source = (Spinner) findViewById(R.id.source);
-        notes = (EditText)findViewById(R.id.notes);
+        notes = (EditText) findViewById(R.id.notes);
 
         date.setFocusable(false);
         sources = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.income_sources)));
@@ -82,7 +72,7 @@ public class NewIncomeActivity extends AppCompatActivity implements DateSetListe
             setTitle(R.string.edit_income);
             uri = extras.getParcelable(DatabaseProvider.CONTENT_ITEM_TYPE);
             populate();
-        }else
+        } else
             setTitle(R.string.new_income);
     }
 
@@ -101,8 +91,8 @@ public class NewIncomeActivity extends AppCompatActivity implements DateSetListe
         int id = item.getItemId();
 
         if (id == R.id.action_save) {
-            if(save())
-              this.finish();
+            if (save())
+                this.finish();
             return true;
         }
 
@@ -146,7 +136,7 @@ public class NewIncomeActivity extends AppCompatActivity implements DateSetListe
             return false;
 
         String incomedate = date.getText().toString();
-        if(incomedate.length() == 0){
+        if (incomedate.length() == 0) {
             incomedate = TextFormat.toDisplayDateText(calendar.getTime());
         }
 

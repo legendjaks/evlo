@@ -17,55 +17,56 @@
 
             <include
                 android:id="@+id/toolbar"
-                layout="@layout/toolbar" />
+                layout="@layout/toolbar"/>
         </LinearLayout>
 
         <EditText
             android:id="@+id/date"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginTop="16dp"
             android:hint="Today"
-            android:inputType="date" >
+            android:inputType="date">
         </EditText>
 
         <android.support.design.widget.TextInputLayout
 
-            android:layout_marginTop="8dp"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
-            android:layout_marginBottom="8dp"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
+            android:layout_marginTop="8dp">
 
             <EditText
                 android:id="@+id/amount"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:hint="Amount"
-                android:inputType="numberDecimal" >
+                android:inputType="numberDecimal">
+
                 <requestFocus/>
             </EditText>
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
 
-            android:layout_marginTop="8dp"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
-            android:layout_marginBottom="8dp"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
+            android:layout_marginTop="8dp">
 
             <EditText
                 android:id="@+id/notes"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:hint="Notes"
-                android:inputType="text" >
+                android:inputType="text">
             </EditText>
         </android.support.design.widget.TextInputLayout>
 

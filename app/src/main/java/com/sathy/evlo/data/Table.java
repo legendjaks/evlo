@@ -11,8 +11,8 @@ import android.database.sqlite.SQLiteDatabase;
 
 public abstract class Table {
 
-    protected SQLiteDatabase db;
     private final Database evlo;
+    protected SQLiteDatabase db;
 
     public Table(Context context) throws SQLException {
 

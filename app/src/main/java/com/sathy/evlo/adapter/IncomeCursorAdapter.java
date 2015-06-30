@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.sathy.evlo.activity.R;
 import com.sathy.evlo.control.RoundedDrawable;
 import com.sathy.evlo.data.Income;
-import com.sathy.evlo.listener.ActionModeListener;
+import com.sathy.evlo.listener.ListItemPartListener;
 import com.sathy.evlo.util.MaterialColorGenerator;
 import com.sathy.evlo.util.TextFormat;
 
@@ -31,15 +31,13 @@ public class IncomeCursorAdapter extends CursorAdapter {
     private Map<String, Boolean> itemsChecked;
 
     private LayoutInflater inflater;
-    private ActionModeListener listener;
-    private int selected;
+    private ListItemPartListener listener;
 
-    public IncomeCursorAdapter(Context context, Cursor cursor, ActionModeListener listener) {
+    public IncomeCursorAdapter(Context context, Cursor cursor, ListItemPartListener listener) {
         super(context, cursor, false);
         inflater = LayoutInflater.from(context);
         itemsChecked = new HashMap<>();
         this.listener = listener;
-        selected = 0;
     }
 
     @Override
@@ -64,6 +62,10 @@ public class IncomeCursorAdapter extends CursorAdapter {
         holder.source.setText(cursor.getString(cursor.getColumnIndexOrThrow(Income.Source)));
 
         update(holder);
+    }
+
+    public void clear() {
+        itemsChecked.clear();
     }
 
     private void update(ViewHolder holder) {
@@ -112,26 +114,8 @@ public class IncomeCursorAdapter extends CursorAdapter {
             if (!itemsChecked.containsKey(key))
                 itemsChecked.put(key, false);
 
-            boolean checked = false;
-            if (itemsChecked.get(key)) {
-                itemsChecked.put(key, false);
-                selected--;
-            } else {
-                itemsChecked.put(key, true);
-                checked = true;
-                selected++;
-            }
-
-            if (selected < 0)
-                selected = 0;
-
-            Log.d("ICA", "Selected: " + selected);
-
-            /*
-            if (listener != null)
-                listener.showActionBar(selected > 0);
-            */
-
+            boolean checked = !itemsChecked.get(key);
+            itemsChecked.put(key, checked);
             listener.onItemSelected(parent, checked);
 
             update(ViewHolder.this);

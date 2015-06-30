@@ -12,7 +12,6 @@ import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.ActionMode;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -20,15 +19,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.sathy.evlo.activity.NewIncomeActivity;
 import com.sathy.evlo.activity.R;
 import com.sathy.evlo.adapter.IncomeCursorAdapter;
 import com.sathy.evlo.data.Income;
-import com.sathy.evlo.listener.ActionModeListener;
+import com.sathy.evlo.listener.ListItemPartListener;
 import com.sathy.evlo.provider.DatabaseProvider;
 
-public class IncomesFragment extends ListFragment implements LoaderManager.LoaderCallbacks<Cursor>, ActionModeListener {
+public class IncomesFragment extends ListFragment implements LoaderManager.LoaderCallbacks<Cursor>, ListItemPartListener {
 
     private FloatingActionButton add;
     private View view;
@@ -36,6 +36,68 @@ public class IncomesFragment extends ListFragment implements LoaderManager.Loade
     private ActionMode actionMode;
 
     private IncomeCursorAdapter adapter;
+    private boolean itemsDeleted;
+    private ActionMode.Callback actionModeCallback = new ActionMode.Callback() {
+
+        // Called when the action mode is created; startActionMode() was called
+        @Override
+        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+
+            itemsDeleted = false;
+            // Inflate a menu resource providing context menu items
+            MenuInflater inflater = mode.getMenuInflater();
+            inflater.inflate(R.menu.delete, menu);
+            return true;
+        }
+
+        // Called each time the action mode is shown. Always called after onCreateActionMode, but
+        // may be called multiple times if the mode is invalidated.
+        @Override
+        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+            return false; // Return false if nothing is done
+        }
+
+        // Called when the user selects a contextual menu item
+        @Override
+        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.action_delete:
+
+                    long[] ids = listView.getCheckedItemIds();
+                    if (ids != null && ids.length > 0) {
+                        String[] args = new String[ids.length];
+                        for (int i = 0; i < ids.length; i++) {
+                            args[i] = String.valueOf(ids[i]);
+                        }
+
+                        getActivity().getContentResolver().delete(DatabaseProvider.CONTENT_URI, null, args);
+                        Toast.makeText(getActivity(), ids.length + " items deleted", Toast.LENGTH_SHORT).show();
+                        itemsDeleted = true;
+                    }
+
+                    mode.finish(); // Action picked, so close the CAB
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
+        // Called when the user exits the action mode
+        @Override
+        public void onDestroyActionMode(ActionMode mode) {
+
+            actionMode = null;
+            if (itemsDeleted)
+                return;
+
+            long[] ids = listView.getCheckedItemIds();
+            if (ids != null && ids.length > 0) {
+                adapter.clear();
+                listView.clearChoices();
+                getLoaderManager().restartLoader(0, null, IncomesFragment.this);
+            }
+        }
+    };
 
     public IncomesFragment() {
         // Required empty public constructor
@@ -124,73 +186,18 @@ public class IncomesFragment extends ListFragment implements LoaderManager.Loade
         startActivity(intent);
     }
 
-    private ActionMode.Callback actionModeCallback = new ActionMode.Callback() {
-
-        // Called when the action mode is created; startActionMode() was called
-        @Override
-        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-            // Inflate a menu resource providing context menu items
-            MenuInflater inflater = mode.getMenuInflater();
-            inflater.inflate(R.menu.delete, menu);
-            return true;
-        }
-
-        // Called each time the action mode is shown. Always called after onCreateActionMode, but
-        // may be called multiple times if the mode is invalidated.
-        @Override
-        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-            return false; // Return false if nothing is done
-        }
-
-        // Called when the user selects a contextual menu item
-        @Override
-        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.action_delete:
-                    Log.d("CAB", "delete called");
-                    mode.finish(); // Action picked, so close the CAB
-                    return true;
-                default:
-                    return false;
-            }
-        }
-
-        // Called when the user exits the action mode
-        @Override
-        public void onDestroyActionMode(ActionMode mode) {
-            actionMode = null;
-        }
-    };
-
-    @Override
-    public void showActionBar(boolean flag) {
-        Log.d("IF", "SAB: " + flag);
-        if (flag) {
-            if (actionMode == null) {
-                AppCompatActivity activity = (AppCompatActivity) getActivity();
-                actionMode = activity.startSupportActionMode(actionModeCallback);
-            }
-        } else {
-            if (actionMode != null)
-                actionMode.finish();
-        }
-    }
-
     @Override
     public void onItemSelected(View view, boolean status) {
-        Log.d("IF", "Selected Index: " + listView.getPositionForView(view));
+
         int index = listView.getPositionForView(view);
         listView.setItemChecked(index, status);
 
         long[] ids = listView.getCheckedItemIds();
-        if (ids == null || ids.length == 0) {
-            if (actionMode != null)
-                actionMode.finish();
-        } else {
-            if (actionMode == null) {
-                AppCompatActivity activity = (AppCompatActivity) getActivity();
-                actionMode = activity.startSupportActionMode(actionModeCallback);
-            }
+        if ((ids == null || ids.length == 0) && actionMode != null) {
+            actionMode.finish();
+        } else if (actionMode == null) {
+            AppCompatActivity activity = (AppCompatActivity) getActivity();
+            actionMode = activity.startSupportActionMode(actionModeCallback);
         }
     }
 }

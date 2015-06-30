@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.widget.DatePicker;
 
 import com.sathy.evlo.listener.DateSetListener;
-import com.sathy.evlo.util.TextFormat;
 
 import java.util.Calendar;
 
@@ -22,7 +21,7 @@ public class DatePickerFragment extends DialogFragment
     private Calendar calendar;
     private DateSetListener listener;
 
-    public DatePickerFragment(Activity activity, Calendar calendar, DateSetListener listener){
+    public DatePickerFragment(Activity activity, Calendar calendar, DateSetListener listener) {
         this.activity = activity;
         this.calendar = calendar;
         this.listener = listener;
@@ -44,7 +43,7 @@ public class DatePickerFragment extends DialogFragment
         calendar.set(Calendar.MONTH, month);
         calendar.set(Calendar.DAY_OF_MONTH, day);
 
-        if(listener != null)
+        if (listener != null)
             listener.onDateSet();
     }
 }

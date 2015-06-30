@@ -23,21 +23,21 @@ public class TextFormat {
         return decimalformat.format(value);
     }
 
-    public static String toDisplayDateText(Date date){
+    public static String toDisplayDateText(Date date) {
         return isdf.format(date);
     }
 
-    public static String toDateText(String value){
+    public static String toDateText(String value) {
 
         Calendar calendar = Calendar.getInstance();
         String today = isdf.format(calendar.getTime());
 
-        if(value.equals(today))
+        if (value.equals(today))
             return TODAY;
 
         calendar.add(Calendar.DATE, -1);
         String yday = isdf.format(calendar.getTime());
-        if(value.equals(yday))
+        if (value.equals(yday))
             return YESTERDAY;
 
         try {

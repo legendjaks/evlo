@@ -79,18 +79,6 @@ public class MainActivity extends AppCompatActivity {
         drawerToggle.syncState();
     }
 
-    private class SelectedListener implements NavigationView.OnNavigationItemSelectedListener {
-
-        @Override
-        public boolean onNavigationItemSelected(MenuItem menuItem) {
-
-            drawerLayout.closeDrawer(navigation);
-            showFragment(menuItem.getItemId());
-            menuItem.setChecked(true);
-            return true;
-        }
-    }
-
     private void showFragment(int id) {
         Fragment fragment = null;
         String title = getString(R.string.app_name);
@@ -126,6 +114,18 @@ public class MainActivity extends AppCompatActivity {
             fragmentTransaction.commit();
         }
         getSupportActionBar().setTitle(title);
+    }
+
+    private class SelectedListener implements NavigationView.OnNavigationItemSelectedListener {
+
+        @Override
+        public boolean onNavigationItemSelected(MenuItem menuItem) {
+
+            drawerLayout.closeDrawer(navigation);
+            showFragment(menuItem.getItemId());
+            menuItem.setChecked(true);
+            return true;
+        }
     }
 
     private class DrawerToggle extends ActionBarDrawerToggle {

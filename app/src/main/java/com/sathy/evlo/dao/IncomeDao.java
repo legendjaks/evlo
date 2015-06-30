@@ -14,8 +14,8 @@ import com.sathy.evlo.data.TableEntity;
  */
 public class IncomeDao extends Table {
 
-    private static final String[] Columns = new String[] { TableEntity.Id, Income.IncomeDate,
-             Income.Amount, Income.Notes };
+    private static final String[] Columns = new String[]{TableEntity.Id, Income.IncomeDate,
+            Income.Amount, Income.Notes};
 
     public IncomeDao(Context context) throws SQLException {
         super(context);

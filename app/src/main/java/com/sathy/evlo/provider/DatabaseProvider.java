@@ -18,21 +18,18 @@ import com.sathy.evlo.data.Income;
  */
 public class DatabaseProvider extends ContentProvider {
 
-    private static final int INCOMES = 10;
-    private static final int INCOME_ID = 20;
-
-    private static final String AUTHORITY = "com.sathy.evlo.provider";
-
-    private static final String BASE_PATH = "income";
-    public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY
-            + "/" + BASE_PATH);
-
     public static final String CONTENT_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE
             + "/income";
     public static final String CONTENT_ITEM_TYPE = ContentResolver.CURSOR_ITEM_BASE_TYPE
             + "/income";
-
+    private static final int INCOMES = 10;
+    private static final int INCOME_ID = 20;
+    private static final String AUTHORITY = "com.sathy.evlo.provider";
+    private static final String BASE_PATH = "income";
+    public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY
+            + "/" + BASE_PATH);
     private static final UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
+
     static {
         uriMatcher.addURI(AUTHORITY, BASE_PATH, INCOMES);
         uriMatcher.addURI(AUTHORITY, BASE_PATH + "/#", INCOME_ID);
@@ -69,7 +66,7 @@ public class DatabaseProvider extends ContentProvider {
                 throw new IllegalArgumentException("Unknown URI: " + uri);
         }
 
-        if(db == null)
+        if (db == null)
             db = evlo.getWritableDatabase();
 
         Cursor cursor = queryBuilder.query(db, projection, selection,
@@ -88,7 +85,7 @@ public class DatabaseProvider extends ContentProvider {
     public Uri insert(Uri uri, ContentValues values) {
         int uriType = uriMatcher.match(uri);
 
-        if(db == null)
+        if (db == null)
             db = evlo.getWritableDatabase();
 
         long id = 0;
@@ -107,13 +104,13 @@ public class DatabaseProvider extends ContentProvider {
     public int delete(Uri uri, String selection, String[] selectionArgs) {
 
         int uriType = uriMatcher.match(uri);
-        if(db == null)
+        if (db == null)
             db = evlo.getWritableDatabase();
 
         int rowsDeleted = 0;
         switch (uriType) {
             case INCOMES:
-                for(String id:selectionArgs) {
+                for (String id : selectionArgs) {
                     db.delete(Income.TableName, Income.Id + "=" + id,
                             null);
                     rowsDeleted++;
@@ -130,7 +127,7 @@ public class DatabaseProvider extends ContentProvider {
     public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
 
         int uriType = uriMatcher.match(uri);
-        if(db == null)
+        if (db == null)
             db = evlo.getWritableDatabase();
 
         int rowsUpdated = 0;

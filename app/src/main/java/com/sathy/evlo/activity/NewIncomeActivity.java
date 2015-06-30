@@ -23,6 +23,8 @@ import android.widget.Toast;
 import com.sathy.evlo.dao.IncomeDao;
 import com.sathy.evlo.data.Income;
 import com.sathy.evlo.data.TableEntity;
+import com.sathy.evlo.fragment.DatePickerFragment;
+import com.sathy.evlo.listener.DateSetListener;
 import com.sathy.evlo.provider.DatabaseProvider;
 import com.sathy.evlo.util.TextFormat;
 
@@ -35,7 +37,7 @@ import java.util.Calendar;
 /**
  * Created by sathy on 24/6/15.
  */
-public class NewIncomeActivity extends AppCompatActivity {
+public class NewIncomeActivity extends AppCompatActivity implements DateSetListener {
 
     private Toolbar toolbar;
     private EditText date;
@@ -47,8 +49,6 @@ public class NewIncomeActivity extends AppCompatActivity {
     private Uri uri;
     private ArrayList<String> sources;
 
-    private static final String[] tableColumns = new String[] { Income.Id, Income.IncomeDate, Income.Amount, Income.Source, Income.Notes
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +63,7 @@ public class NewIncomeActivity extends AppCompatActivity {
         notes = (EditText)findViewById(R.id.notes);
 
         date.setFocusable(false);
-        sources = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.income_sources)));
+        sources = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.income_sources)));
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -72,7 +72,7 @@ public class NewIncomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                DialogFragment newFragment = new DatePickerFragment();
+                DialogFragment newFragment = new DatePickerFragment(NewIncomeActivity.this, calendar, NewIncomeActivity.this);
                 newFragment.show(getFragmentManager(), "datePicker");
             }
         });
@@ -114,7 +114,7 @@ public class NewIncomeActivity extends AppCompatActivity {
             return;
         }
 
-        Cursor cursor = getContentResolver().query(uri, tableColumns, null, null,
+        Cursor cursor = getContentResolver().query(uri, Income.Columns, null, null,
                 null);
         if (cursor != null) {
             cursor.moveToFirst();
@@ -169,26 +169,8 @@ public class NewIncomeActivity extends AppCompatActivity {
         return true;
     }
 
-    public class DatePickerFragment extends DialogFragment
-            implements DatePickerDialog.OnDateSetListener {
-
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            // Use the current date as the default date in the picker
-            int year = calendar.get(Calendar.YEAR);
-            int month = calendar.get(Calendar.MONTH);
-            int day = calendar.get(Calendar.DAY_OF_MONTH);
-
-            // Create a new instance of DatePickerDialog and return it
-            return new DatePickerDialog(getActivity(), this, year, month, day);
-        }
-
-        public void onDateSet(DatePicker view, int year, int month, int day) {
-            calendar.set(Calendar.YEAR, year);
-            calendar.set(Calendar.MONTH, month);
-            calendar.set(Calendar.DAY_OF_MONTH, day);
-
-            date.setText(TextFormat.toDisplayDateText(calendar.getTime()));
-        }
+    @Override
+    public void onDateSet() {
+        date.setText(TextFormat.toDisplayDateText(calendar.getTime()));
     }
 }

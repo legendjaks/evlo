@@ -19,8 +19,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
-import android.widget.AbsListView.MultiChoiceModeListener;
 import android.widget.ListView;
 
 import com.sathy.evlo.activity.NewIncomeActivity;
@@ -38,8 +36,6 @@ public class IncomesFragment extends ListFragment implements LoaderManager.Loade
     private ActionMode actionMode;
 
     private IncomeCursorAdapter adapter;
-    private static final String[] tableColumns = new String[]{Income.Id, Income.IncomeDate, Income.Amount, Income.Source, Income.Notes
-    };
 
     public IncomesFragment() {
         // Required empty public constructor
@@ -99,7 +95,7 @@ public class IncomesFragment extends ListFragment implements LoaderManager.Loade
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
 
         CursorLoader cursorLoader = new CursorLoader(view.getContext(),
-                DatabaseProvider.CONTENT_URI, tableColumns, null, null, null);
+                DatabaseProvider.CONTENT_URI, Income.Columns, null, null, null);
         return cursorLoader;
     }
 
@@ -128,7 +124,7 @@ public class IncomesFragment extends ListFragment implements LoaderManager.Loade
         startActivity(intent);
     }
 
-    private ActionMode.Callback amCallback = new ActionMode.Callback() {
+    private ActionMode.Callback actionModeCallback = new ActionMode.Callback() {
 
         // Called when the action mode is created; startActionMode() was called
         @Override
@@ -172,7 +168,7 @@ public class IncomesFragment extends ListFragment implements LoaderManager.Loade
         if (flag) {
             if (actionMode == null) {
                 AppCompatActivity activity = (AppCompatActivity) getActivity();
-                actionMode = activity.startSupportActionMode(amCallback);
+                actionMode = activity.startSupportActionMode(actionModeCallback);
             }
         } else {
             if (actionMode != null)
@@ -193,7 +189,7 @@ public class IncomesFragment extends ListFragment implements LoaderManager.Loade
         } else {
             if (actionMode == null) {
                 AppCompatActivity activity = (AppCompatActivity) getActivity();
-                actionMode = activity.startSupportActionMode(amCallback);
+                actionMode = activity.startSupportActionMode(actionModeCallback);
             }
         }
     }

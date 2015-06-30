@@ -13,6 +13,8 @@ public class Income extends TableEntity {
     public static final String Source = "source";
     public static final String Notes = "notes";
 
+    public static final String[] Columns = new String[] { Id, IncomeDate, Amount, Source, Notes };
+
     private String incomeDate;
     private double amount;
     private int source;

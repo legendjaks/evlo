@@ -1,9 +1,12 @@
 <resources>
     <string name="app_name">Evlo</string>
-    <string name="action_save">Save</string>
-    <string name="action_search">Search</string>
+
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
+
+    <string name="action_save">Save</string>
+    <string name="action_search">Search</string>
+    <string name="action_delete">Delete</string>
 
     <string name="title_expenses">Expenses</string>
     <string name="title_incomes">Incomes</string>
@@ -11,10 +14,12 @@
     <string name="title_home">Home</string>
     <string name="title_sources">Sources</string>
 
-    <string name="today">Today</string>
+
     <string name="new_expense">New Expense</string>
     <string name="new_income">New Income</string>
     <string name="edit_income">Edit Income</string>
+
+    <string name="today">Today</string>
     <string name="empty">EMPTY</string>
     <string name="rs">\u20B9</string>
     <string name="amount">Amount</string>
@@ -22,10 +27,10 @@
     <string name="notes">Notes</string>
 
     <string-array name="income_sources">
-        <item>Salary</item>
-        <item>Interest</item>
-        <item>Assets</item>
-        <item>Repayment</item>
-        <item>Others</item>
+        <item>SALARY</item>
+        <item>INTEREST</item>
+        <item>ASSETS</item>
+        <item>REPAYMENT</item>
+        <item>OTHERS</item>
     </string-array>
 </resources>

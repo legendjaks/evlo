@@ -105,7 +105,25 @@ public class DatabaseProvider extends ContentProvider {
 
     @Override
     public int delete(Uri uri, String selection, String[] selectionArgs) {
-        return 0;
+
+        int uriType = uriMatcher.match(uri);
+        if(db == null)
+            db = evlo.getWritableDatabase();
+
+        int rowsDeleted = 0;
+        switch (uriType) {
+            case INCOMES:
+                for(String id:selectionArgs) {
+                    db.delete(Income.TableName, Income.Id + "=" + id,
+                            null);
+                    rowsDeleted++;
+                }
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown URI: " + uri);
+        }
+        getContext().getContentResolver().notifyChange(uri, null);
+        return rowsDeleted;
     }
 
     @Override

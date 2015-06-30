@@ -28,6 +28,8 @@ import com.sathy.evlo.util.TextFormat;
 
 import java.net.URI;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 
 /**
@@ -42,9 +44,8 @@ public class NewIncomeActivity extends AppCompatActivity {
     private EditText notes;
 
     private Calendar calendar = Calendar.getInstance();
-
     private Uri uri;
-    private int sourceId;
+    private ArrayList<String> sources;
 
     private static final String[] tableColumns = new String[] { Income.Id, Income.IncomeDate, Income.Amount, Income.Source, Income.Notes
     };
@@ -62,7 +63,7 @@ public class NewIncomeActivity extends AppCompatActivity {
         notes = (EditText)findViewById(R.id.notes);
 
         date.setFocusable(false);
-        sourceId = 0;
+        sources = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.income_sources)));
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -122,9 +123,14 @@ public class NewIncomeActivity extends AppCompatActivity {
                     .getColumnIndexOrThrow(Income.IncomeDate)));
             amount.setText(cursor.getString(cursor
                     .getColumnIndexOrThrow(Income.Amount)));
-
+            String selectedSource = cursor.getString(cursor
+                    .getColumnIndexOrThrow(Income.Source));
             notes.setText(cursor.getString(cursor
                     .getColumnIndexOrThrow(Income.Notes)));
+
+            int sourceId = sources.indexOf(selectedSource);
+            source.setSelection(sourceId);
+            Log.d("NIA", "Loading sourceId: " + sourceId);
 
             // always close the cursor
             cursor.close();
@@ -144,7 +150,7 @@ public class NewIncomeActivity extends AppCompatActivity {
             incomedate = TextFormat.toDisplayDateText(calendar.getTime());
         }
 
-        Log.d("NIA", source.getSelectedItem().toString());
+        Log.d("NIA", "Saving source: " + source.getSelectedItem().toString());
 
         String note = notes.getText().toString();
 

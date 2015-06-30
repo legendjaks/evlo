@@ -18,9 +18,9 @@ public class TextFormat {
     private static final String TODAY = "Today";
     private static final String YESTERDAY = "Yesterday";
 
-    public static String toDecimalText(String value) {
+    public static String toDecimalText(double value) {
 
-        return decimalformat.format(Double.parseDouble(value));
+        return decimalformat.format(value);
     }
 
     public static String toDisplayDateText(Date date){

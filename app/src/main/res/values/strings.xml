@@ -18,6 +18,8 @@
     <string name="new_expense">New Expense</string>
     <string name="new_income">New Income</string>
     <string name="edit_income">Edit Income</string>
+    <string name="new_source">New Source</string>
+    <string name="edit_source">Edit Source</string>
 
     <string name="today">Today</string>
     <string name="empty">EMPTY</string>
@@ -25,6 +27,7 @@
     <string name="amount">Amount</string>
     <string name="source">Source</string>
     <string name="notes">Notes</string>
+    <string name="name">Name</string>
 
     <string-array name="income_sources">
         <item>SALARY</item>

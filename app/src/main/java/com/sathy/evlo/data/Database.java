@@ -40,11 +40,11 @@ public class Database extends SQLiteOpenHelper {
         database.execSQL(createExpenseTags);*/
         database.execSQL(createIncome);
 
-        database.execSQL("INSERT INTO source (name) VALUES ('Cash') ");
-        database.execSQL("INSERT INTO source (name) VALUES ('Credit Card') ");
-        database.execSQL("INSERT INTO source (name) VALUES ('Debit Card') ");
-        database.execSQL("INSERT INTO source (name) VALUES ('Cheque') ");
-        database.execSQL("INSERT INTO source (name) VALUES ('Wire Transfer') ");
+        database.execSQL("INSERT INTO source (name) VALUES ('CASH') ");
+        database.execSQL("INSERT INTO source (name) VALUES ('CREDIT CARD') ");
+        database.execSQL("INSERT INTO source (name) VALUES ('DEBIT CARD') ");
+        database.execSQL("INSERT INTO source (name) VALUES ('CHEQUE') ");
+        database.execSQL("INSERT INTO source (name) VALUES ('WIRE TRANSFER') ");
     }
 
     @Override

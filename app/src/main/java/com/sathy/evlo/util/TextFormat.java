@@ -13,7 +13,7 @@ public class TextFormat {
 
     private static final DecimalFormat decimalformat = new DecimalFormat("##,##,##,##0.00");
     private static final SimpleDateFormat osdf = new SimpleDateFormat("MMM dd");
-    private static final SimpleDateFormat isdf = new SimpleDateFormat("dd-MMM-yyyy");
+    private static final SimpleDateFormat isdf = new SimpleDateFormat("yyyy-MM-dd");
 
     private static final String TODAY = "Today";
     private static final String YESTERDAY = "Yesterday";
@@ -46,5 +46,17 @@ public class TextFormat {
         } catch (ParseException e) {
             return value;
         }
+    }
+
+    public static String getSourceSymbol(String text){
+
+        int gap = text.indexOf(" ");
+        if(gap == -1)
+            return String.valueOf(text.charAt(0));
+
+        if((gap+1) < text.length())
+        return new String(new char[]{text.charAt(0), text.charAt(gap + 1)});
+
+        return String.valueOf(text.charAt(0));
     }
 }

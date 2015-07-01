@@ -9,6 +9,7 @@ public class Source extends TableEntity {
 
     public static final String TableName = "source";
     public static final String Name = "name";
+    public static final String[] Columns = new String[]{Id, Name};
 
     private String name;
 

@@ -7,7 +7,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -70,7 +69,7 @@ public class NewIncomeActivity extends AppCompatActivity implements DateSetListe
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             setTitle(R.string.edit_income);
-            uri = extras.getParcelable(DatabaseProvider.CONTENT_ITEM_TYPE);
+            uri = extras.getParcelable(DatabaseProvider.INCOME_ITEM_TYPE);
             populate();
         } else
             setTitle(R.string.new_income);
@@ -120,8 +119,6 @@ public class NewIncomeActivity extends AppCompatActivity implements DateSetListe
 
             int sourceId = sources.indexOf(selectedSource);
             source.setSelection(sourceId);
-            Log.d("NIA", "Loading sourceId: " + sourceId);
-
             // always close the cursor
             cursor.close();
         }
@@ -140,8 +137,6 @@ public class NewIncomeActivity extends AppCompatActivity implements DateSetListe
             incomedate = TextFormat.toDisplayDateText(calendar.getTime());
         }
 
-        Log.d("NIA", "Saving source: " + source.getSelectedItem().toString());
-
         String note = notes.getText().toString();
 
         ContentValues values = new ContentValues();
@@ -151,7 +146,7 @@ public class NewIncomeActivity extends AppCompatActivity implements DateSetListe
         values.put(Income.Notes, note);
 
         if (uri == null) {
-            uri = getContentResolver().insert(DatabaseProvider.CONTENT_URI, values);
+            uri = getContentResolver().insert(DatabaseProvider.INCOME_URI, values);
         } else {
             getContentResolver().update(uri, values, null, null);
         }

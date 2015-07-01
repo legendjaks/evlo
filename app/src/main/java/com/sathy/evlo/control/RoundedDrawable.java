@@ -47,7 +47,9 @@ public class RoundedDrawable extends ShapeDrawable {
         // draw text
         int width = r.width();
         int height = r.height();
-        int fontSize = (Math.min(width, height) / 2) + 2;
+        int fontSize = (Math.min(width, height) / 2);
+        if(text.length() == 1)
+            fontSize += 2;
         paint.setTextSize(fontSize);
         canvas.drawText(text, width / 2, height / 2 - ((paint.descent() + paint.ascent()) / 2), paint);
         canvas.restoreToCount(count);

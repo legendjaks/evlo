@@ -70,7 +70,7 @@ public class IncomesFragment extends ListFragment implements LoaderManager.Loade
                             args[i] = String.valueOf(ids[i]);
                         }
 
-                        getActivity().getContentResolver().delete(DatabaseProvider.CONTENT_URI, null, args);
+                        getActivity().getContentResolver().delete(DatabaseProvider.INCOME_URI, null, args);
                         Toast.makeText(getActivity(), ids.length + " items deleted", Toast.LENGTH_SHORT).show();
                         itemsDeleted = true;
                     }
@@ -157,7 +157,7 @@ public class IncomesFragment extends ListFragment implements LoaderManager.Loade
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
 
         CursorLoader cursorLoader = new CursorLoader(view.getContext(),
-                DatabaseProvider.CONTENT_URI, Income.Columns, null, null, null);
+                DatabaseProvider.INCOME_URI, Income.Columns, null, null, null);
         return cursorLoader;
     }
 
@@ -175,14 +175,14 @@ public class IncomesFragment extends ListFragment implements LoaderManager.Loade
     public void onListItemClick(ListView listView, View view, int position, long id) {
         super.onListItemClick(listView, view, position, id);
 
-        editIncome(id);
+        edit(id);
     }
 
-    private void editIncome(long id) {
+    private void edit(long id) {
 
-        Uri uri = Uri.parse(DatabaseProvider.CONTENT_URI + "/" + id);
+        Uri uri = Uri.parse(DatabaseProvider.INCOME_URI + "/" + id);
         Intent intent = new Intent(getActivity(), NewIncomeActivity.class);
-        intent.putExtra(DatabaseProvider.CONTENT_ITEM_TYPE, uri);
+        intent.putExtra(DatabaseProvider.INCOME_ITEM_TYPE, uri);
         startActivity(intent);
     }
 

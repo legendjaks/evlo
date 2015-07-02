@@ -1,7 +1,5 @@
 package com.sathy.evlo.data;
 
-import android.content.ContentValues;
-
 /**
  * Created by sathy on 29/6/15.
  */
@@ -32,12 +30,5 @@ public class Source extends TableEntity {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    @Override
-    public ContentValues getContentValues() {
-        ContentValues values = new ContentValues();
-        values.put(Name, name.trim());
-        return values;
     }
 }

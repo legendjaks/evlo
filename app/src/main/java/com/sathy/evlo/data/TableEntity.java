@@ -1,7 +1,5 @@
 package com.sathy.evlo.data;
 
-import android.content.ContentValues;
-
 /**
  * Created by sathy on 27/6/15.
  */
@@ -21,6 +19,4 @@ public abstract class TableEntity {
     public void setId(long id) {
         this.id = id;
     }
-
-    public abstract ContentValues getContentValues();
 }

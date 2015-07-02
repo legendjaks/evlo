@@ -80,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showFragment(int id) {
+
         Fragment fragment = null;
         String title = getString(R.string.app_name);
         switch (id) {

@@ -15,10 +15,13 @@
     <string name="title_sources">Sources</string>
 
 
-    <string name="new_expense">New Expense</string>
-    <string name="new_income">New Income</string>
+    <string name="new_expense">Add New Expense</string>
+    <string name="edit_expense">Edit Expense</string>
+    <string name="new_income">Add New Income</string>
     <string name="edit_income">Edit Income</string>
-    <string name="new_source">New Source</string>
+    <string name="new_tag">Add New Tag</string>
+    <string name="edit_tag">Edit Tag</string>
+    <string name="new_source">Add New Source</string>
     <string name="edit_source">Edit Source</string>
 
     <string name="today">Today</string>

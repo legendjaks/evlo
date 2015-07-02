@@ -1,7 +1,5 @@
 package com.sathy.evlo.data;
 
-import android.content.ContentValues;
-
 /**
  * Created by sathy on 27/6/15.
  */
@@ -22,25 +20,6 @@ public class Income extends TableEntity {
 
     public Income() {
         super();
-    }
-
-    public Income(String incomeDate, double amount, String notes) {
-        this(0, incomeDate, amount, notes);
-    }
-
-    public Income(long id, String expenseDate, double amount, String notes) {
-        this.id = id;
-        this.incomeDate = expenseDate;
-        this.amount = amount;
-        this.notes = notes;
-    }
-
-    public Income(long id, String expenseDate, double amount, int source, String notes) {
-        this.id = id;
-        this.incomeDate = expenseDate;
-        this.amount = amount;
-        this.source = source;
-        this.notes = notes;
     }
 
     public String getIncomeDate() {
@@ -73,15 +52,5 @@ public class Income extends TableEntity {
 
     public void setSource(int source) {
         this.source = source;
-    }
-
-    @Override
-    public ContentValues getContentValues() {
-
-        ContentValues values = new ContentValues();
-        values.put(IncomeDate, incomeDate.trim());
-        values.put(Amount, amount);
-        values.put(Notes, notes.trim());
-        return values;
     }
 }

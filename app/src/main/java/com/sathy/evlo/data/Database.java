@@ -23,28 +23,38 @@ public class Database extends SQLiteOpenHelper {
                 + "(_id integer primary key autoincrement, tag_order integer not null,  name text not null)";
         String createSource = CreateTable + Source.TableName
                 + "(_id integer primary key autoincrement, name text not null)";
-        /*String createExpenses = CreateTable
+        String createExpense = CreateTable
                 + Expense.TableName
-                + "(_id integer primary key autoincrement, expensedate integer not null, paymenttype integer not null, amount real not null, comments text)";
-        String createExpenseTags = CreateTable
+                + "(_id integer primary key autoincrement, expense_date integer not null, source_id integer not null, amount real not null, notes text)";
+        String createExpenseTag = CreateTable
                 + ExpenseTag.TableName
-                + "(expenseId integer not null, tagId integer not null, constraint expenseTags_pk primary key(expenseId, tagId))";*/
+                + "(expense_id integer not null, tag_id integer not null, constraint expense_tags_pk primary key(expense_id, tag_id))";
         String createIncome = CreateTable
                 + Income.TableName
                 + "(_id integer primary key autoincrement, income_date integer not null, amount real not null, source integer not null, notes text)";
 
         database.execSQL(createTag);
         database.execSQL(createSource);
-        /*
-        database.execSQL(createExpenses);
-        database.execSQL(createExpenseTags);*/
+        database.execSQL(createExpense);
+        database.execSQL(createExpenseTag);
         database.execSQL(createIncome);
 
         database.execSQL("INSERT INTO source (name) VALUES ('CASH') ");
         database.execSQL("INSERT INTO source (name) VALUES ('CREDIT CARD') ");
         database.execSQL("INSERT INTO source (name) VALUES ('DEBIT CARD') ");
-        database.execSQL("INSERT INTO source (name) VALUES ('CHEQUE') ");
+        database.execSQL("INSERT INTO source (name) VALUES ('ECS') ");
         database.execSQL("INSERT INTO source (name) VALUES ('WIRE TRANSFER') ");
+
+        database.execSQL("INSERT INTO tag (tag_order, name) VALUES (1, 'HOME') ");
+        database.execSQL("INSERT INTO tag (tag_order, name) VALUES (1, 'OFFICE') ");
+        database.execSQL("INSERT INTO tag (tag_order, name) VALUES (1, 'GROCERIES') ");
+        database.execSQL("INSERT INTO tag (tag_order, name) VALUES (1, 'TRAVEL') ");
+        database.execSQL("INSERT INTO tag (tag_order, name) VALUES (1, 'FOOD') ");
+        database.execSQL("INSERT INTO tag (tag_order, name) VALUES (1, 'EAT OUT') ");
+        database.execSQL("INSERT INTO tag (tag_order, name) VALUES (1, 'SNACKS') ");
+        database.execSQL("INSERT INTO tag (tag_order, name) VALUES (1, 'CAR') ");
+        database.execSQL("INSERT INTO tag (tag_order, name) VALUES (1, 'BIKE') ");
+        database.execSQL("INSERT INTO tag (tag_order, name) VALUES (1, 'FUEL') ");
     }
 
     @Override

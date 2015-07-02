@@ -28,7 +28,6 @@
             android:layout_height="wrap_content"
             android:hint="@string/name"
             android:inputType="textCapCharacters">
-
             <requestFocus/>
         </EditText>
     </android.support.design.widget.TextInputLayout>

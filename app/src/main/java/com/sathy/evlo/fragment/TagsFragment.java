@@ -43,7 +43,7 @@ public class TagsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.tags, container, false);
+        View rootView = inflater.inflate(R.layout.fab_list_fragment, container, false);
         // Inflate the layout for this fragment
         return rootView;
     }

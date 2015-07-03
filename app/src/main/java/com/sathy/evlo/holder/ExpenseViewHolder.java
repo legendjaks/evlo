@@ -1,22 +1,24 @@
-package com.sathy.evlo.adapter;
+package com.sathy.evlo.holder;
 
 import android.view.View;
 import android.widget.TextView;
 
 import com.sathy.evlo.activity.R;
+import com.sathy.evlo.adapter.CircledCursorAdapter;
 import com.sathy.evlo.util.TextFormat;
 
 /**
  * Created by sathy on 2/7/15.
  */
-public class IncomeViewHolder extends CircledViewHolder {
+public class ExpenseViewHolder extends CircledViewHolder {
 
     private TextView date;
     private TextView amount;
     private TextView notes;
     private TextView source;
+    private String sourceName;
 
-    public IncomeViewHolder(View view, CircledCursorAdapter adapter) {
+    public ExpenseViewHolder(View view, CircledCursorAdapter adapter) {
         super(view, adapter);
 
         this.date = (TextView) view.findViewById(R.id.row_date);
@@ -27,12 +29,12 @@ public class IncomeViewHolder extends CircledViewHolder {
 
     @Override
     public String getSymbol() {
-        return TextFormat.getSourceSymbol(String.valueOf(source.getText().charAt(0)));
+        return TextFormat.getSourceSymbol(sourceName);
     }
 
     @Override
     public String getKey() {
-        return source.getText().toString();
+        return sourceName;
     }
 
     public TextView getDate() {
@@ -49,5 +51,13 @@ public class IncomeViewHolder extends CircledViewHolder {
 
     public TextView getSource() {
         return source;
+    }
+
+    public String getSourceName() {
+        return sourceName;
+    }
+
+    public void setSourceName(String sourceName) {
+        this.sourceName = sourceName;
     }
 }

@@ -1,20 +1,24 @@
-package com.sathy.evlo.adapter;
+package com.sathy.evlo.holder;
+
 
 import android.view.View;
 import android.widget.TextView;
 
 import com.sathy.evlo.activity.R;
+import com.sathy.evlo.adapter.CircledCursorAdapter;
 import com.sathy.evlo.util.TextFormat;
 
 /**
  * Created by sathy on 2/7/15.
  */
-public class SourceViewHolder extends CircledViewHolder {
+public class TagViewHolder extends CircledViewHolder {
 
+    private TextView order;
     private TextView name;
 
-    public SourceViewHolder(View view, CircledCursorAdapter adapter) {
+    public TagViewHolder(View view, CircledCursorAdapter adapter) {
         super(view, adapter);
+        this.order = (TextView) view.findViewById(R.id.row_order);
         this.name = (TextView) view.findViewById(R.id.row_name);
     }
 
@@ -30,5 +34,9 @@ public class SourceViewHolder extends CircledViewHolder {
 
     public TextView getName() {
         return name;
+    }
+
+    public TextView getOrder() {
+        return order;
     }
 }

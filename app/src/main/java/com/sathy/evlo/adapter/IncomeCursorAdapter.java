@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import com.sathy.evlo.activity.R;
 import com.sathy.evlo.data.Income;
+import com.sathy.evlo.holder.IncomeViewHolder;
 import com.sathy.evlo.listener.ListItemPartListener;
 import com.sathy.evlo.util.TextFormat;
 

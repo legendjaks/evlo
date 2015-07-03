@@ -1,4 +1,4 @@
-package com.sathy.evlo.adapter;
+package com.sathy.evlo.holder;
 
 import android.graphics.Color;
 import android.view.View;
@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.sathy.evlo.activity.R;
+import com.sathy.evlo.adapter.CircledCursorAdapter;
 import com.sathy.evlo.control.RoundedDrawable;
 import com.sathy.evlo.util.MaterialColorGenerator;
 

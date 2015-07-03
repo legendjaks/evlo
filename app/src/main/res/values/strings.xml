@@ -31,6 +31,7 @@
     <string name="source">Source</string>
     <string name="notes">Notes</string>
     <string name="name">Name</string>
+    <string name="paid_by">Paid by</string>
 
     <string-array name="income_sources">
         <item>SALARY</item>

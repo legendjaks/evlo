@@ -1,31 +1,43 @@
 package com.sathy.evlo.activity;
 
-import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.app.DialogFragment;
+import android.content.ContentValues;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.Spinner;
 
-import java.text.SimpleDateFormat;
+import com.sathy.evlo.data.Expense;
+import com.sathy.evlo.data.Source;
+import com.sathy.evlo.fragment.DatePickerFragment;
+import com.sathy.evlo.listener.DateSetListener;
+import com.sathy.evlo.provider.DatabaseProvider;
+import com.sathy.evlo.util.TextFormat;
+
 import java.util.Calendar;
 
 /**
  * Created by sathy on 24/6/15.
  */
-public class NewExpenseActivity extends AppCompatActivity {
+public class NewExpenseActivity extends AppCompatActivity implements DateSetListener {
 
     private Toolbar toolbar;
     private EditText date;
+    private EditText amount;
+    private Spinner source;
+    private EditText notes;
 
-    private SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
     private Calendar calendar = Calendar.getInstance();
+    private Uri uri;
+
+    private SimpleCursorAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +47,32 @@ public class NewExpenseActivity extends AppCompatActivity {
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         date = (EditText) findViewById(R.id.date);
+        amount = (EditText) findViewById(R.id.amount);
+        source = (Spinner) findViewById(R.id.source);
+        notes = (EditText) findViewById(R.id.notes);
+
         date.setFocusable(false);
+
+        int[] columns = {R.id.row_id, R.id.row_name};
+
+        Cursor cursor = getContentResolver().query(
+                DatabaseProvider.SOURCE_URI,
+                Source.Columns,
+                null,
+                null,
+                null
+        );
+
+        adapter = new SimpleCursorAdapter(
+                this,
+                R.layout.source_spinner,
+                cursor,
+                Source.Columns,
+                columns,
+                0
+        );
+        adapter.setDropDownViewResource(R.layout.source_spinner);
+        source.setAdapter(adapter);
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -43,10 +80,19 @@ public class NewExpenseActivity extends AppCompatActivity {
         date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogFragment newFragment = new DatePickerFragment();
+
+                DialogFragment newFragment = new DatePickerFragment(NewExpenseActivity.this, calendar, NewExpenseActivity.this);
                 newFragment.show(getFragmentManager(), "datePicker");
             }
         });
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            setTitle(R.string.edit_expense);
+            uri = extras.getParcelable(DatabaseProvider.EXPENSE_ITEM_TYPE);
+            populate();
+        } else
+            setTitle(R.string.new_expense);
     }
 
     @Override
@@ -64,33 +110,75 @@ public class NewExpenseActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.action_save) {
-            Toast.makeText(getApplicationContext(), "Save action is selected!", Toast.LENGTH_SHORT).show();
+            if (save())
+                this.finish();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    public class DatePickerFragment extends DialogFragment
-            implements DatePickerDialog.OnDateSetListener {
-
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            // Use the current date as the default date in the picker
-            int year = calendar.get(Calendar.YEAR);
-            int month = calendar.get(Calendar.MONTH);
-            int day = calendar.get(Calendar.DAY_OF_MONTH);
-
-            // Create a new instance of DatePickerDialog and return it
-            return new DatePickerDialog(getActivity(), this, year, month, day);
+    private void populate() {
+        if (uri == null) {
+            return;
         }
 
-        public void onDateSet(DatePicker view, int year, int month, int day) {
-            calendar.set(Calendar.YEAR, year);
-            calendar.set(Calendar.MONTH, month);
-            calendar.set(Calendar.DAY_OF_MONTH, day);
+        Cursor cursor = getContentResolver().query(uri, Expense.Columns, null, null,
+                null);
+        if (cursor != null) {
+            cursor.moveToFirst();
 
-            date.setText(sdf.format(calendar.getTime()));
+            date.setText(cursor.getString(cursor
+                    .getColumnIndexOrThrow(Expense.ExpenseDate)));
+            amount.setText(cursor.getString(cursor
+                    .getColumnIndexOrThrow(Expense.Amount)));
+            int selectedSource = cursor.getInt(cursor
+                    .getColumnIndexOrThrow(Expense.SourceId));
+            notes.setText(cursor.getString(cursor
+                    .getColumnIndexOrThrow(Expense.Notes)));
+
+            for (int i = 0; i < adapter.getCount(); i++) {
+                if (adapter.getItemId(i) == selectedSource) {
+                    source.setSelection(i);
+                    break;
+                }
+            }
+            cursor.close();
         }
+    }
+
+    private boolean save() {
+
+        if (amount.getText().toString().trim().length() == 0)
+            return false;
+        double incomeAmount = Double.parseDouble(amount.getText().toString());
+        if (incomeAmount == 0.0)
+            return false;
+
+        String incomedate = date.getText().toString();
+        if (incomedate.length() == 0) {
+            incomedate = TextFormat.toDisplayDateText(calendar.getTime());
+        }
+
+        String note = notes.getText().toString();
+
+        ContentValues values = new ContentValues();
+        values.put(Expense.ExpenseDate, incomedate);
+        values.put(Expense.Amount, incomeAmount);
+        values.put(Expense.SourceId, source.getSelectedItemId());
+        values.put(Expense.Notes, note);
+
+        if (uri == null) {
+            uri = getContentResolver().insert(DatabaseProvider.EXPENSE_URI, values);
+        } else {
+            getContentResolver().update(uri, values, null, null);
+        }
+
+        return true;
+    }
+
+    @Override
+    public void onDateSet() {
+        date.setText(TextFormat.toDisplayDateText(calendar.getTime()));
     }
 }

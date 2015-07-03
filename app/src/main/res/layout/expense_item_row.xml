@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="72dp">
+
+    <FrameLayout
+        android:id="@+id/circle_layout"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_margin="16dp">
+
+        <ImageView
+            android:id="@+id/circle_char"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center"
+            android:visibility="visible"/>
+
+        <ImageView
+            android:id="@+id/check_icon"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_checked"
+            android:visibility="gone"/>
+    </FrameLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_toRightOf="@+id/circle_layout">
+
+        <TextView
+            android:id="@+id/row_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:fontFamily="sans-serif"
+            android:text="723.56"
+            android:textColor="@color/item_primary"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/row_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/row_amount"
+            android:fontFamily="sans-serif"
+            android:gravity="right"
+            android:text="Jun 27"
+            android:textColor="@color/item_secondary"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:id="@+id/row_notes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@+id/row_amount"
+            android:fontFamily="sans-serif"
+            android:singleLine="true"
+            android:text="Groceries, chicken, onion, mushroom, tomato"
+            android:textColor="@color/item_secondary"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:id="@+id/row_id"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            />
+
+        <TextView
+            android:id="@+id/row_source"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            />
+    </RelativeLayout>
+</RelativeLayout>

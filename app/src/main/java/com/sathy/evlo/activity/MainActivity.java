@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.sathy.evlo.fragment.ExpensesFragment;
+import com.sathy.evlo.fragment.FabListFragment;
 import com.sathy.evlo.fragment.HomeFragment;
 import com.sathy.evlo.fragment.IncomesFragment;
 import com.sathy.evlo.fragment.SourcesFragment;
@@ -28,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private NavigationView navigation;
     private ActionBarDrawerToggle drawerToggle;
+
+    private Fragment fragment = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +68,11 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.action_search) {
+
+            if(fragment != null && fragment instanceof FabListFragment){
+                ((FabListFragment)fragment).onSearch();
+            }
+            else
             Toast.makeText(getApplicationContext(), "Search action is selected!", Toast.LENGTH_SHORT).show();
             return true;
         }
@@ -81,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void showFragment(int id) {
 
-        Fragment fragment = null;
+
         String title = getString(R.string.app_name);
         switch (id) {
             case R.id.nav_home:

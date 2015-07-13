@@ -215,4 +215,8 @@ public abstract class FabListFragment extends ListFragment implements LoaderMana
             getLoaderManager().restartLoader(0, null, this);
         }
     }
+
+    public void onSearch(){
+
+    }
 }

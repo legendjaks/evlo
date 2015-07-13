@@ -19,6 +19,7 @@
     <string name="edit_expense">Edit Expense</string>
     <string name="new_income">Add New Income</string>
     <string name="edit_income">Edit Income</string>
+    <string name="search_income">Search Income</string>
     <string name="new_tag">Add New Tag</string>
     <string name="edit_tag">Edit Tag</string>
     <string name="new_source">Add New Source</string>
@@ -32,6 +33,9 @@
     <string name="notes">Notes</string>
     <string name="name">Name</string>
     <string name="paid_by">Paid by</string>
+    <string name="from">From</string>
+    <string name="to">To</string>
+    <string name="include_source">Include Source</string>
 
     <string-array name="income_sources">
         <item>SALARY</item>

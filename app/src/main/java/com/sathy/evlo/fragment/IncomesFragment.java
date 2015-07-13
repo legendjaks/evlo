@@ -1,8 +1,10 @@
 package com.sathy.evlo.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 
 import com.sathy.evlo.activity.NewIncomeActivity;
+import com.sathy.evlo.activity.SearchIncomeActivity;
 import com.sathy.evlo.adapter.CircledCursorAdapter;
 import com.sathy.evlo.adapter.IncomeCursorAdapter;
 import com.sathy.evlo.data.Income;
@@ -22,5 +24,11 @@ public class IncomesFragment extends FabListFragment {
     @Override
     public String[] getColumns() {
         return Income.Columns;
+    }
+
+    @Override
+    public void onSearch(){
+        Intent intent = new Intent(getActivity(), SearchIncomeActivity.class);
+        startActivity(intent);
     }
 }

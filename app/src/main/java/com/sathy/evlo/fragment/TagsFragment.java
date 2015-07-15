@@ -16,24 +16,24 @@ import com.sathy.evlo.provider.DatabaseProvider;
  */
 public class TagsFragment extends FabListFragment {
 
-    public TagsFragment() {
-        super(NewTagActivity.class, DatabaseProvider.TAG_URI, DatabaseProvider.TAG_ITEM_TYPE);
-    }
+  public TagsFragment() {
+    super(NewTagActivity.class, DatabaseProvider.TAG_URI, DatabaseProvider.TAG_ITEM_TYPE);
+  }
 
-    @Override
-    public CircledCursorAdapter getAdapter(Context context) {
-        return new TagCursorAdapter(context, this);
-    }
+  @Override
+  public CircledCursorAdapter getAdapter(Context context) {
+    return new TagCursorAdapter(context, this);
+  }
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        if (menu != null) {
-            menu.findItem(R.id.action_search).setVisible(false);
-        }
+  @Override
+  public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    if (menu != null) {
+      menu.findItem(R.id.action_search).setVisible(false);
     }
+  }
 
-    @Override
-    public String[] getColumns() {
-        return Tag.Columns;
-    }
+  @Override
+  public String[] getColumns() {
+    return Tag.Columns;
+  }
 }

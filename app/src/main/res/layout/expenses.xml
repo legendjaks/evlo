@@ -1,9 +1,9 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:app="http://schemas.android.com/apk/res-auto"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             tools:context="com.sathy.evlo.fragment.HomeFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.sathy.evlo.fragment.HomeFragment">
 
     <TextView
         android:layout_width="wrap_content"
@@ -13,7 +13,7 @@
         android:layout_centerVertical="true"
         android:layout_gravity="center"
         android:text="@string/title_expenses"
-        android:textSize="25dp"/>
+        android:textSize="25dp" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
@@ -24,6 +24,5 @@
         android:src="@drawable/ic_plus"
         app:backgroundTint="@color/fab"
         app:borderWidth="0dp"
-        app:elevation="4dp"
-        />
+        app:elevation="4dp" />
 </FrameLayout>

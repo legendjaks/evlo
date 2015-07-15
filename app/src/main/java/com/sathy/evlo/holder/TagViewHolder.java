@@ -13,30 +13,24 @@ import com.sathy.evlo.util.TextFormat;
  */
 public class TagViewHolder extends CircledViewHolder {
 
-    private TextView order;
-    private TextView name;
+  private TextView name;
 
-    public TagViewHolder(View view, CircledCursorAdapter adapter) {
-        super(view, adapter);
-        this.order = (TextView) view.findViewById(R.id.row_order);
-        this.name = (TextView) view.findViewById(R.id.row_name);
-    }
+  public TagViewHolder(View view, CircledCursorAdapter adapter) {
+    super(view, adapter);
+    this.name = (TextView) view.findViewById(R.id.row_name);
+  }
 
-    @Override
-    public String getSymbol() {
-        return TextFormat.getSourceSymbol(name.getText().toString());
-    }
+  @Override
+  public String getSymbol() {
+    return TextFormat.getSourceSymbol(name.getText().toString());
+  }
 
-    @Override
-    public String getKey() {
-        return name.getText().toString();
-    }
+  @Override
+  public String getKey() {
+    return name.getText().toString();
+  }
 
-    public TextView getName() {
-        return name;
-    }
-
-    public TextView getOrder() {
-        return order;
-    }
+  public TextView getName() {
+    return name;
+  }
 }

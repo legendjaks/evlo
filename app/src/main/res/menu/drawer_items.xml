@@ -4,23 +4,23 @@
             android:id="@+id/nav_home"
             android:checked="true"
             android:icon="@drawable/ic_home"
-            android:title="@string/title_home"/>
+            android:title="@string/title_home" />
         <item
             android:id="@+id/nav_expenses"
             android:icon="@drawable/ic_expense"
-            android:title="@string/title_expenses"/>
+            android:title="@string/title_expenses" />
         <item
             android:id="@+id/nav_incomes"
             android:icon="@drawable/ic_incomes"
-            android:title="@string/title_incomes"/>
+            android:title="@string/title_incomes" />
         <item
             android:id="@+id/nav_tags"
             android:icon="@drawable/ic_tag"
-            android:title="@string/title_tags"/>
+            android:title="@string/title_tags" />
         <item
             android:id="@+id/nav_sources"
             android:icon="@drawable/ic_card"
-            android:title="@string/title_sources"/>
+            android:title="@string/title_sources" />
     </group>
 
 </menu>

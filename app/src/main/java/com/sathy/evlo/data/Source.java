@@ -5,30 +5,30 @@ package com.sathy.evlo.data;
  */
 public class Source extends TableEntity {
 
-    public static final String TableName = "source";
-    public static final String Name = "name";
-    public static final String[] Columns = new String[]{Id, Name};
+  public static final String TableName = "source";
+  public static final String Name = "name";
+  public static final String[] Columns = new String[]{Id, Name};
 
-    private String name;
+  private String name;
 
-    public Source() {
-        super();
-    }
+  public Source() {
+    super();
+  }
 
-    public Source(String name) {
-        this(0, name);
-    }
+  public Source(String name) {
+    this(0, name);
+  }
 
-    public Source(long id, String name) {
-        this.id = id;
-        this.name = name;
-    }
+  public Source(long id, String name) {
+    this.id = id;
+    this.name = name;
+  }
 
-    public String getName() {
-        return name;
-    }
+  public String getName() {
+    return name;
+  }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+  public void setName(String name) {
+    this.name = name;
+  }
 }

@@ -6,8 +6,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.sathy.evlo.activity.R;
-import com.sathy.evlo.adapter.CircledCursorAdapter;
 import com.sathy.evlo.control.RoundedDrawable;
+import com.sathy.evlo.listener.MultiSelectable;
 import com.sathy.evlo.util.MaterialColorGenerator;
 
 import java.util.Map;
@@ -17,62 +17,62 @@ import java.util.Map;
  */
 public abstract class CircledViewHolder implements View.OnClickListener {
 
-    private static final int CIRCLE_BG = 0xff919191;
+  private static final int CIRCLE_BG = 0xff919191;
 
-    private View parent;
-    private ImageView circle;
-    private ImageView check;
-    private TextView id;
+  private View parent;
+  private ImageView circle;
+  private ImageView check;
+  private TextView id;
 
-    private CircledCursorAdapter adapter;
+  private MultiSelectable multiSelectable;
 
-    public CircledViewHolder(View view, CircledCursorAdapter adapter) {
-        this.parent = view;
-        this.circle = (ImageView) view.findViewById(R.id.circle_char);
-        this.check = (ImageView) view.findViewById(R.id.check_icon);
-        this.id = (TextView) view.findViewById(R.id.row_id);
+  public CircledViewHolder(View view, MultiSelectable multiSelectable) {
+    this.parent = view;
+    this.circle = (ImageView) view.findViewById(R.id.circle_char);
+    this.check = (ImageView) view.findViewById(R.id.check_icon);
+    this.id = (TextView) view.findViewById(R.id.row_id);
 
-        this.circle.setOnClickListener(this);
-        this.adapter = adapter;
+    this.circle.setOnClickListener(this);
+    this.multiSelectable = multiSelectable;
+  }
+
+  @Override
+  public void onClick(View view) {
+
+    Map<String, Boolean> itemsChecked = multiSelectable.getItemsChecked();
+
+    String key = id.getText().toString();
+    if (!itemsChecked.containsKey(key))
+      itemsChecked.put(key, false);
+
+    boolean checked = !itemsChecked.get(key);
+    itemsChecked.put(key, checked);
+    multiSelectable.getListItemPartListener().onItemSelected(parent, checked);
+
+    update();
+  }
+
+  public void update() {
+
+    Map<String, Boolean> itemsChecked = multiSelectable.getItemsChecked();
+    String key = id.getText().toString();
+
+    if (itemsChecked.containsKey(key) && itemsChecked.get(key)) {
+      circle.setImageDrawable(new RoundedDrawable(" ", CIRCLE_BG));
+      check.setVisibility(View.VISIBLE);
+      parent.setBackgroundColor(Color.LTGRAY);
+    } else {
+      circle.setImageDrawable(new RoundedDrawable(getSymbol(), MaterialColorGenerator.get(getKey())));
+      check.setVisibility(View.GONE);
+      parent.setBackgroundColor(Color.TRANSPARENT);
     }
+  }
 
-    @Override
-    public void onClick(View view) {
+  public TextView getId() {
+    return id;
+  }
 
-        Map<String, Boolean> itemsChecked = adapter.getItemsChecked();
+  abstract public String getSymbol();
 
-        String key = id.getText().toString();
-        if (!itemsChecked.containsKey(key))
-            itemsChecked.put(key, false);
-
-        boolean checked = !itemsChecked.get(key);
-        itemsChecked.put(key, checked);
-        adapter.getListItemPartListener().onItemSelected(parent, checked);
-
-        update();
-    }
-
-    public void update() {
-
-        Map<String, Boolean> itemsChecked = adapter.getItemsChecked();
-        String key = id.getText().toString();
-
-        if (itemsChecked.containsKey(key) && itemsChecked.get(key)) {
-            circle.setImageDrawable(new RoundedDrawable(" ", CIRCLE_BG));
-            check.setVisibility(View.VISIBLE);
-            parent.setBackgroundColor(Color.LTGRAY);
-        } else {
-            circle.setImageDrawable(new RoundedDrawable(getSymbol(), MaterialColorGenerator.get(getKey())));
-            check.setVisibility(View.GONE);
-            parent.setBackgroundColor(Color.TRANSPARENT);
-        }
-    }
-
-    public TextView getId() {
-        return id;
-    }
-
-    abstract public String getSymbol();
-
-    abstract public String getKey();
+  abstract public String getKey();
 }

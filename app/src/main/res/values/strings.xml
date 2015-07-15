@@ -30,12 +30,14 @@
     <string name="rs">\u20B9</string>
     <string name="amount">Amount</string>
     <string name="source">Source</string>
+    <string name="tag">Tag</string>
     <string name="notes">Notes</string>
     <string name="name">Name</string>
     <string name="paid_by">Paid by</string>
     <string name="from">From</string>
     <string name="to">To</string>
     <string name="include_source">Include Source</string>
+    <string name="search_criteria">From :from to :to</string>
 
     <string-array name="income_sources">
         <item>SALARY</item>

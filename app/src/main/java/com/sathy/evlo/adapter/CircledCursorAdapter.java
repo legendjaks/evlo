@@ -1,10 +1,11 @@
 package com.sathy.evlo.adapter;
 
 import android.content.Context;
+import android.support.v4.widget.CursorAdapter;
 import android.view.LayoutInflater;
-import android.widget.CursorAdapter;
 
 import com.sathy.evlo.listener.ListItemPartListener;
+import com.sathy.evlo.listener.MultiSelectable;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,7 +13,7 @@ import java.util.Map;
 /**
  * Created by sathy on 28/6/15.
  */
-public abstract class CircledCursorAdapter extends CursorAdapter {
+public abstract class CircledCursorAdapter extends CursorAdapter implements MultiSelectable {
 
     protected LayoutInflater inflater;
     private Map<String, Boolean> itemsChecked;

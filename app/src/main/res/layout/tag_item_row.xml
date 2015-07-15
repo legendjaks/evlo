@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="fill_parent"
-                android:layout_height="72dp">
+    android:layout_width="fill_parent"
+    android:layout_height="72dp">
 
     <FrameLayout
         android:id="@+id/circle_layout"
@@ -14,7 +14,7 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_gravity="center"
-            android:visibility="visible"/>
+            android:visibility="visible" />
 
         <ImageView
             android:id="@+id/check_icon"
@@ -22,7 +22,7 @@
             android:layout_height="fill_parent"
             android:layout_gravity="center"
             android:src="@drawable/ic_checked"
-            android:visibility="gone"/>
+            android:visibility="gone" />
     </FrameLayout>
 
     <LinearLayout
@@ -41,18 +41,16 @@
             android:fontFamily="sans-serif"
             android:text="CREDIT CARD"
             android:textColor="@color/item_primary"
-            android:textSize="16sp"/>
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/row_id"
             android:layout_width="0dp"
-            android:layout_height="0dp"
-            />
+            android:layout_height="0dp" />
 
         <TextView
             android:id="@+id/row_order"
             android:layout_width="0dp"
-            android:layout_height="0dp"
-            />
+            android:layout_height="0dp" />
     </LinearLayout>
 </RelativeLayout>

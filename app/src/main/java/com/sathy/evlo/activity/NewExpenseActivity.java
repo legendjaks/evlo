@@ -16,6 +16,7 @@ import android.widget.Spinner;
 
 import com.sathy.evlo.data.Expense;
 import com.sathy.evlo.data.Source;
+import com.sathy.evlo.data.Tag;
 import com.sathy.evlo.fragment.DatePickerFragment;
 import com.sathy.evlo.listener.DateSetListener;
 import com.sathy.evlo.provider.DatabaseProvider;
@@ -28,157 +29,189 @@ import java.util.Calendar;
  */
 public class NewExpenseActivity extends AppCompatActivity implements DateSetListener {
 
-    private Toolbar toolbar;
-    private EditText date;
-    private EditText amount;
-    private Spinner source;
-    private EditText notes;
+  private Toolbar toolbar;
+  private EditText date;
+  private EditText amount;
+  private Spinner source;
+  private Spinner tag;
+  private EditText notes;
 
-    private Calendar calendar = Calendar.getInstance();
-    private Uri uri;
+  private Calendar calendar = Calendar.getInstance();
+  private Uri uri;
 
-    private SimpleCursorAdapter adapter;
+  private SimpleCursorAdapter sourceAdapter;
+  private SimpleCursorAdapter tagAdapter;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.new_expense);
+    setContentView(R.layout.new_expense);
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        date = (EditText) findViewById(R.id.date);
-        amount = (EditText) findViewById(R.id.amount);
-        source = (Spinner) findViewById(R.id.source);
-        notes = (EditText) findViewById(R.id.notes);
+    toolbar = (Toolbar) findViewById(R.id.toolbar);
+    date = (EditText) findViewById(R.id.date);
+    amount = (EditText) findViewById(R.id.amount);
+    source = (Spinner) findViewById(R.id.source);
+    tag = (Spinner) findViewById(R.id.tag);
+    notes = (EditText) findViewById(R.id.notes);
 
-        date.setFocusable(false);
+    date.setFocusable(false);
 
-        int[] columns = {R.id.row_id, R.id.row_name};
+    int[] columns = {R.id.row_id, R.id.row_name};
 
-        Cursor cursor = getContentResolver().query(
-                DatabaseProvider.SOURCE_URI,
-                Source.Columns,
-                null,
-                null,
-                null
-        );
+    Cursor cursor = getContentResolver().query(
+        DatabaseProvider.SOURCE_URI,
+        Source.Columns,
+        null,
+        null,
+        null
+    );
 
-        adapter = new SimpleCursorAdapter(
-                this,
-                R.layout.source_spinner,
-                cursor,
-                Source.Columns,
-                columns,
-                0
-        );
-        adapter.setDropDownViewResource(R.layout.source_spinner);
-        source.setAdapter(adapter);
+    sourceAdapter = new SimpleCursorAdapter(
+        this,
+        R.layout.source_spinner,
+        cursor,
+        Source.Columns,
+        columns,
+        0
+    );
+    sourceAdapter.setDropDownViewResource(R.layout.source_spinner);
+    source.setAdapter(sourceAdapter);
 
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    cursor = getContentResolver().query(
+        DatabaseProvider.TAG_URI,
+        Tag.Columns,
+        null,
+        null,
+        null
+    );
 
-        date.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+    tagAdapter = new SimpleCursorAdapter(
+        this,
+        R.layout.source_spinner,
+        cursor,
+        Tag.Columns,
+        columns,
+        0
+    );
+    tagAdapter.setDropDownViewResource(R.layout.source_spinner);
+    tag.setAdapter(tagAdapter);
 
-                DialogFragment newFragment = new DatePickerFragment(NewExpenseActivity.this, calendar, NewExpenseActivity.this);
-                newFragment.show(getFragmentManager(), "datePicker");
-            }
-        });
+    setSupportActionBar(toolbar);
+    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            setTitle(R.string.edit_expense);
-            uri = extras.getParcelable(DatabaseProvider.EXPENSE_ITEM_TYPE);
-            populate();
-        } else
-            setTitle(R.string.new_expense);
+    date.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+
+        DialogFragment newFragment = new DatePickerFragment(NewExpenseActivity.this, calendar, NewExpenseActivity.this);
+        newFragment.show(getFragmentManager(), "datePicker");
+      }
+    });
+
+    Bundle extras = getIntent().getExtras();
+    if (extras != null) {
+      setTitle(R.string.edit_expense);
+      uri = extras.getParcelable(DatabaseProvider.EXPENSE_ITEM_TYPE);
+      populate();
+    } else
+      setTitle(R.string.new_expense);
+  }
+
+  @Override
+  public boolean onCreateOptionsMenu(Menu menu) {
+    // Inflate the menu; this adds items to the action bar if it is present.
+    getMenuInflater().inflate(R.menu.save, menu);
+    return true;
+  }
+
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
+    // Handle action bar item clicks here. The action bar will
+    // automatically handle clicks on the Home/Up button, so long
+    // as you specify a parent activity in AndroidManifest.xml.
+    int id = item.getItemId();
+
+    if (id == R.id.action_save) {
+      if (save())
+        this.finish();
+      return true;
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.save, menu);
-        return true;
+    return super.onOptionsItemSelected(item);
+  }
+
+  private void populate() {
+    if (uri == null) {
+      return;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+    Cursor cursor = getContentResolver().query(uri, Expense.Columns, null, null,
+        null);
+    if (cursor != null) {
+      cursor.moveToFirst();
 
-        if (id == R.id.action_save) {
-            if (save())
-                this.finish();
-            return true;
+      date.setText(cursor.getString(cursor
+          .getColumnIndexOrThrow(Expense.ExpenseDate)));
+      amount.setText(cursor.getString(cursor
+          .getColumnIndexOrThrow(Expense.Amount)));
+      notes.setText(cursor.getString(cursor
+          .getColumnIndexOrThrow(Expense.Notes)));
+
+      int selected = cursor.getInt(cursor
+          .getColumnIndexOrThrow(Expense.SourceId));
+      for (int i = 0; i < sourceAdapter.getCount(); i++) {
+        if (sourceAdapter.getItemId(i) == selected) {
+          source.setSelection(i);
+          break;
         }
+      }
 
-        return super.onOptionsItemSelected(item);
+      selected = cursor.getInt(cursor
+          .getColumnIndexOrThrow(Expense.TagId));
+      for (int i = 0; i < tagAdapter.getCount(); i++) {
+        if (tagAdapter.getItemId(i) == selected) {
+          tag.setSelection(i);
+          break;
+        }
+      }
+      cursor.close();
+    }
+  }
+
+  private boolean save() {
+
+    if (amount.getText().toString().trim().length() == 0)
+      return false;
+    double incomeAmount = Double.parseDouble(amount.getText().toString());
+    if (incomeAmount == 0.0)
+      return false;
+
+    String incomedate = date.getText().toString();
+    if (incomedate.length() == 0) {
+      incomedate = TextFormat.toDisplayDateText(calendar.getTime());
     }
 
-    private void populate() {
-        if (uri == null) {
-            return;
-        }
+    String note = notes.getText().toString();
 
-        Cursor cursor = getContentResolver().query(uri, Expense.Columns, null, null,
-                null);
-        if (cursor != null) {
-            cursor.moveToFirst();
+    ContentValues values = new ContentValues();
+    values.put(Expense.ExpenseDate, incomedate);
+    values.put(Expense.Amount, incomeAmount);
+    values.put(Expense.SourceId, source.getSelectedItemId());
+    values.put(Expense.TagId, tag.getSelectedItemId());
+    values.put(Expense.Notes, note);
 
-            date.setText(cursor.getString(cursor
-                    .getColumnIndexOrThrow(Expense.ExpenseDate)));
-            amount.setText(cursor.getString(cursor
-                    .getColumnIndexOrThrow(Expense.Amount)));
-            int selectedSource = cursor.getInt(cursor
-                    .getColumnIndexOrThrow(Expense.SourceId));
-            notes.setText(cursor.getString(cursor
-                    .getColumnIndexOrThrow(Expense.Notes)));
-
-            for (int i = 0; i < adapter.getCount(); i++) {
-                if (adapter.getItemId(i) == selectedSource) {
-                    source.setSelection(i);
-                    break;
-                }
-            }
-            cursor.close();
-        }
+    if (uri == null) {
+      uri = getContentResolver().insert(DatabaseProvider.EXPENSE_URI, values);
+    } else {
+      getContentResolver().update(uri, values, null, null);
     }
 
-    private boolean save() {
+    return true;
+  }
 
-        if (amount.getText().toString().trim().length() == 0)
-            return false;
-        double incomeAmount = Double.parseDouble(amount.getText().toString());
-        if (incomeAmount == 0.0)
-            return false;
-
-        String incomedate = date.getText().toString();
-        if (incomedate.length() == 0) {
-            incomedate = TextFormat.toDisplayDateText(calendar.getTime());
-        }
-
-        String note = notes.getText().toString();
-
-        ContentValues values = new ContentValues();
-        values.put(Expense.ExpenseDate, incomedate);
-        values.put(Expense.Amount, incomeAmount);
-        values.put(Expense.SourceId, source.getSelectedItemId());
-        values.put(Expense.Notes, note);
-
-        if (uri == null) {
-            uri = getContentResolver().insert(DatabaseProvider.EXPENSE_URI, values);
-        } else {
-            getContentResolver().update(uri, values, null, null);
-        }
-
-        return true;
-    }
-
-    @Override
-    public void onDateSet() {
-        date.setText(TextFormat.toDisplayDateText(calendar.getTime()));
-    }
+  @Override
+  public void onDateSet() {
+    date.setText(TextFormat.toDisplayDateText(calendar.getTime()));
+  }
 }

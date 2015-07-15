@@ -14,47 +14,47 @@ import com.sathy.evlo.activity.R;
 
 public class HomeFragment extends Fragment {
 
-    private FloatingActionButton addExpense;
+  private FloatingActionButton addExpense;
 
-    public HomeFragment() {
-        // Required empty public constructor
-    }
+  public HomeFragment() {
+    // Required empty public constructor
+  }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
+  @Override
+  public void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+  }
 
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+  @Override
+  public void onActivityCreated(Bundle savedInstanceState) {
+    super.onActivityCreated(savedInstanceState);
 
-        final View view = getView();
-        addExpense = (FloatingActionButton) view.findViewById(R.id.fab);
-        addExpense.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent myIntent = new Intent(getActivity(), NewExpenseActivity.class);
-                startActivity(myIntent);
-            }
-        });
-    }
+    final View view = getView();
+    addExpense = (FloatingActionButton) view.findViewById(R.id.fab);
+    addExpense.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        Intent myIntent = new Intent(getActivity(), NewExpenseActivity.class);
+        startActivity(myIntent);
+      }
+    });
+  }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.home, container, false);
-        // Inflate the layout for this fragment
-        return rootView;
-    }
+  @Override
+  public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                           Bundle savedInstanceState) {
+    View rootView = inflater.inflate(R.layout.home, container, false);
+    // Inflate the layout for this fragment
+    return rootView;
+  }
 
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-    }
+  @Override
+  public void onAttach(Activity activity) {
+    super.onAttach(activity);
+  }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-    }
+  @Override
+  public void onDetach() {
+    super.onDetach();
+  }
 }

@@ -16,24 +16,24 @@ import com.sathy.evlo.listener.ListItemPartListener;
  */
 public class SourceCursorAdapter extends CircledCursorAdapter {
 
-    public SourceCursorAdapter(Context context, ListItemPartListener listener) {
-        super(context, listener);
-    }
+  public SourceCursorAdapter(Context context, ListItemPartListener listener) {
+    super(context, listener);
+  }
 
-    @Override
-    public View newView(Context context, Cursor cursor, ViewGroup parent) {
-        View view = inflater.inflate(R.layout.source_item_row, parent, false);
-        view.setTag(new SourceViewHolder(view, this));
-        return view;
-    }
+  @Override
+  public View newView(Context context, Cursor cursor, ViewGroup parent) {
+    View view = inflater.inflate(R.layout.source_item_row, parent, false);
+    view.setTag(new SourceViewHolder(view, this));
+    return view;
+  }
 
-    @Override
-    public void bindView(View view, Context context, Cursor cursor) {
+  @Override
+  public void bindView(View view, Context context, Cursor cursor) {
 
-        SourceViewHolder holder = (SourceViewHolder) view.getTag();
+    SourceViewHolder holder = (SourceViewHolder) view.getTag();
 
-        holder.getId().setText(cursor.getString(cursor.getColumnIndexOrThrow(TableEntity.Id)));
-        holder.getName().setText(cursor.getString(cursor.getColumnIndexOrThrow(Source.Name)));
-        holder.update();
-    }
+    holder.getId().setText(cursor.getString(cursor.getColumnIndexOrThrow(TableEntity.Id)));
+    holder.getName().setText(cursor.getString(cursor.getColumnIndexOrThrow(Source.Name)));
+    holder.update();
+  }
 }

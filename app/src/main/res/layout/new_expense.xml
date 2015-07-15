@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:clickable="true"
-              android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clickable="true"
+    android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/container_toolbar"
@@ -13,7 +13,7 @@
 
         <include
             android:id="@+id/toolbar"
-            layout="@layout/toolbar"/>
+            layout="@layout/toolbar" />
     </LinearLayout>
 
     <EditText
@@ -25,8 +25,7 @@
         android:layout_marginRight="16dp"
         android:layout_marginTop="16dp"
         android:hint="@string/today"
-        android:inputType="date">
-    </EditText>
+        android:inputType="date"></EditText>
 
     <android.support.design.widget.TextInputLayout
 
@@ -44,39 +43,65 @@
             android:hint="@string/amount"
             android:inputType="numberDecimal">
 
-            <requestFocus/>
+            <requestFocus />
         </EditText>
     </android.support.design.widget.TextInputLayout>
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="8dp"
-        android:orientation="horizontal">
+    <TableLayout android:id="@+id/table"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="8dp">
 
+        <TableRow android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp">
         <TextView
             android:id="@+id/source_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_gravity="left|center"
             android:layout_marginLeft="4dp"
             android:fontFamily="sans-serif"
             android:text="@string/paid_by"
             android:textColor="@color/item_secondary"
-            android:textSize="18sp"
-            />
+            android:textSize="18sp" />
 
         <Spinner
             android:id="@+id/source"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center"
+            android:layout_weight="1"
+            android:layout_marginLeft="16dp" />
+        </TableRow>
+
+        <TableRow android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_marginTop="8dp">
+        <TextView
+            android:id="@+id/tag_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left|center"
+            android:layout_marginLeft="4dp"
+            android:fontFamily="sans-serif"
+            android:text="@string/tag"
+            android:textColor="@color/item_secondary"
+            android:textSize="18sp" />
+
+        <Spinner
+            android:id="@+id/tag"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="16dp"/>
+            android:layout_gravity="right|center"
+            android:layout_weight="1"
+            android:layout_marginLeft="16dp" />
+        </TableRow>
 
-    </LinearLayout>
+    </TableLayout>
 
     <android.support.design.widget.TextInputLayout
 
@@ -92,32 +117,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:hint="@string/notes"
-            android:inputType="textCapWords">
-        </EditText>
+            android:inputType="textCapWords"></EditText>
     </android.support.design.widget.TextInputLayout>
-
-    <TextView
-        android:id="@+id/tags_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="left"
-        android:layout_marginLeft="20dp"
-        android:fontFamily="sans-serif"
-        android:text="@string/title_tags"
-        android:textColor="@color/item_secondary"
-        android:textSize="18sp"
-        />
-    <Spinner
-        android:id="@+id/tags"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="8dp"
-        android:entries="@array/income_sources"
-        />
-
-
 
 </LinearLayout>

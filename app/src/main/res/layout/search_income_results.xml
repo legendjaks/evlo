@@ -16,19 +16,45 @@
             layout="@layout/toolbar" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/search_criteria"
+    <LinearLayout
+                  android:layout_width="fill_parent"
+                  android:layout_height="48dp"
+                  android:layout_marginTop="8dp"
+                  android:background="@color/primary_dark">
+
+        <TextView
+            android:id="@+id/search_criteria"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_gravity="left|center"
+            android:fontFamily="sans-serif"
+            android:text="Header"
+            android:textColor="@color/text_primary"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:id="@+id/search_total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_gravity="right|center"
+            android:gravity="right"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif"
+            android:text="1234.00"
+            android:textColor="@color/text_primary"
+            android:textSize="14sp"/>
+
+    </LinearLayout>
+
+    <ListView
+        android:id="@android:id/list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="16dp"
-        android:fontFamily="sans-serif"
-        android:text="@string/search_criteria"
-        android:textColor="@color/item_secondary"
-        android:textSize="16sp" />
-
+        android:layout_marginTop="8dp"
+        android:fastScrollEnabled="true" />
 
 </LinearLayout>

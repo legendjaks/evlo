@@ -2,6 +2,7 @@ package com.sathy.evlo.activity;
 
 import android.app.DialogFragment;
 import android.content.ContentValues;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -123,15 +124,26 @@ public class SearchIncomeActivity extends AppCompatActivity {
 
   private boolean search() {
 
-    String incomedate = from.getText().toString();
-    if (incomedate.length() == 0) {
-      incomedate = TextFormat.toDisplayDateText(cal_from.getTime());
+    String start = from.getText().toString();
+    if (start.length() == 0)return false;
+
+    String end = to.getText().toString();
+    if (end.length() == 0)return false;
+
+    if(start.compareTo(end)> 0){
+      String temp = start;
+      start = end;
+      end = temp;
     }
 
-    ContentValues values = new ContentValues();
-    values.put(Income.IncomeDate, incomedate);
-    values.put(Income.Source, source.getSelectedItem().toString());
+    Intent intent = new Intent(this, IncomeResultsActivity.class);
+    intent.putExtra("start_date", start);
+    intent.putExtra("end_date", end);
+    if(source_switch.isChecked())
+    intent.putExtra("source", source.getSelectedItem().toString());
 
-    return false;
+    startActivity(intent);
+
+    return true;
   }
 }

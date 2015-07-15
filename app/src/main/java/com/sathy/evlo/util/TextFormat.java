@@ -18,6 +18,8 @@ public class TextFormat {
   private static final String TODAY = "Today";
   private static final String YESTERDAY = "Yesterday";
 
+  private static final String SingleQuote = "'";
+
   public static String toDecimalText(double value) {
 
     return decimalformat.format(value);
@@ -58,5 +60,9 @@ public class TextFormat {
       return new String(new char[]{text.charAt(0), text.charAt(gap + 1)});
 
     return String.valueOf(text.charAt(0));
+  }
+
+  public static String quotes(String text) {
+    return SingleQuote + text + SingleQuote;
   }
 }

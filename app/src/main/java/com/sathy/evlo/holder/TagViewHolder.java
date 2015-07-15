@@ -22,7 +22,7 @@ public class TagViewHolder extends CircledViewHolder {
 
   @Override
   public String getSymbol() {
-    return TextFormat.getSourceSymbol(name.getText().toString());
+    return String.valueOf(name.getText().charAt(0));
   }
 
   @Override

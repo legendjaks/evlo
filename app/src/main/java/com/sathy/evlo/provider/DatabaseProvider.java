@@ -92,10 +92,11 @@ public class DatabaseProvider extends ContentProvider {
     switch (uriType) {
       case INCOMES:
         queryBuilder.setTables(Income.TableName);
-        if (TextUtils.isEmpty(selection)) {
-          sortOrder = Income.IncomeDate + " DESC, " + Income.Id + " DESC ";
+        sortOrder = Income.IncomeDate + " DESC, " + Income.Id + " DESC ";
+
+        if (TextUtils.isEmpty(selection))
           limit = " 10 ";
-        }
+
         break;
       case INCOME_ID:
         queryBuilder.setTables(Income.TableName);

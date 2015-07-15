@@ -38,6 +38,7 @@
     <string name="to">To</string>
     <string name="include_source">Include Source</string>
     <string name="search_criteria">From :from to :to</string>
+    <string name="search_results">Search Results</string>
 
     <string-array name="income_sources">
         <item>SALARY</item>

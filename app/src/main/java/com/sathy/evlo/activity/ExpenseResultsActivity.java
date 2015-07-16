@@ -80,6 +80,7 @@ public class ExpenseResultsActivity extends CircleListActivity {
     if (cursor == null)
       return;
 
+    total = 0;
     if ((cursor.getCount() > 0) && cursor.moveToFirst()) {
 
       do {

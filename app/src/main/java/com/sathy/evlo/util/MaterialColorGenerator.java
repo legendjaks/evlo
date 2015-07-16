@@ -1,5 +1,7 @@
 package com.sathy.evlo.util;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -7,7 +9,7 @@ import java.util.Random;
  */
 public class MaterialColorGenerator {
 
-  private static final int[] colors = {
+  private static final Integer[] colors = {
       0xFFF44336,
       0xFFE91E63,
       0xFF9C27B0,
@@ -34,5 +36,9 @@ public class MaterialColorGenerator {
 
   public static int get(String key) {
     return colors[Math.abs(key.hashCode()) % colors.length];
+  }
+
+  public static List<Integer> getColors() {
+    return Arrays.asList(colors);
   }
 }

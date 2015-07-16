@@ -14,6 +14,7 @@ public class TextFormat {
   private static final DecimalFormat decimalformat = new DecimalFormat("##,##,##,##0.00");
   private static final SimpleDateFormat osdf = new SimpleDateFormat("EEE, MMM dd");
   private static final SimpleDateFormat isdf = new SimpleDateFormat("yyyy-MM-dd");
+  private static final SimpleDateFormat month = new SimpleDateFormat("MMM yyyy");
 
   private static final String TODAY = "Today";
   private static final String YESTERDAY = "Yesterday";
@@ -25,8 +26,16 @@ public class TextFormat {
     return decimalformat.format(value);
   }
 
+  public static String getCurrentMonth() {
+    return month.format(new Date()).toUpperCase();
+  }
+
   public static String toDisplayDateText(Date date) {
     return isdf.format(date);
+  }
+
+  public static String dateValue(Calendar calendar) {
+    return isdf.format(calendar.getTime());
   }
 
   public static String toDateText(String value) {

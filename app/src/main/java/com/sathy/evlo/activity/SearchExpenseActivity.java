@@ -1,6 +1,5 @@
 package com.sathy.evlo.activity;
 
-import android.app.DialogFragment;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -122,7 +121,8 @@ public class SearchExpenseActivity extends AppCompatActivity {
       @Override
       public void onClick(View v) {
 
-        DialogFragment newFragment = new DatePickerFragment(SearchExpenseActivity.this, cal_from, fromDateListener);
+        DatePickerFragment newFragment = new DatePickerFragment();
+        newFragment.setParameters(SearchExpenseActivity.this, cal_from, fromDateListener);
         newFragment.show(getFragmentManager(), "datePicker");
       }
     });
@@ -131,7 +131,8 @@ public class SearchExpenseActivity extends AppCompatActivity {
       @Override
       public void onClick(View v) {
 
-        DialogFragment newFragment = new DatePickerFragment(SearchExpenseActivity.this, cal_to, toDateListener);
+        DatePickerFragment newFragment = new DatePickerFragment();
+        newFragment.setParameters(SearchExpenseActivity.this, cal_to, toDateListener);
         newFragment.show(getFragmentManager(), "datePicker");
       }
     });

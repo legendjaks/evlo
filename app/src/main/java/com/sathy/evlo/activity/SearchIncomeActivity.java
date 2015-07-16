@@ -1,7 +1,5 @@
 package com.sathy.evlo.activity;
 
-import android.app.DialogFragment;
-import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -14,7 +12,6 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Switch;
 
-import com.sathy.evlo.data.Income;
 import com.sathy.evlo.fragment.DatePickerFragment;
 import com.sathy.evlo.listener.DateSetListener;
 import com.sathy.evlo.util.TextFormat;
@@ -74,7 +71,8 @@ public class SearchIncomeActivity extends AppCompatActivity {
       @Override
       public void onClick(View v) {
 
-        DialogFragment newFragment = new DatePickerFragment(SearchIncomeActivity.this, cal_from, fromDateListener);
+        DatePickerFragment newFragment = new DatePickerFragment();
+        newFragment.setParameters(SearchIncomeActivity.this, cal_from, fromDateListener);
         newFragment.show(getFragmentManager(), "datePicker");
       }
     });
@@ -83,7 +81,8 @@ public class SearchIncomeActivity extends AppCompatActivity {
       @Override
       public void onClick(View v) {
 
-        DialogFragment newFragment = new DatePickerFragment(SearchIncomeActivity.this, cal_to, toDateListener);
+        DatePickerFragment newFragment = new DatePickerFragment();
+        newFragment.setParameters(SearchIncomeActivity.this, cal_to, toDateListener);
         newFragment.show(getFragmentManager(), "datePicker");
       }
     });

@@ -21,7 +21,10 @@ public class DatePickerFragment extends DialogFragment
   private Calendar calendar;
   private DateSetListener listener;
 
-  public DatePickerFragment(Activity activity, Calendar calendar, DateSetListener listener) {
+  public DatePickerFragment() {
+  }
+
+  public void setParameters(Activity activity, Calendar calendar, DateSetListener listener) {
     this.activity = activity;
     this.calendar = calendar;
     this.listener = listener;

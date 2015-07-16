@@ -167,8 +167,11 @@ public class HomeFragment extends Fragment implements Searchable, LoaderManager.
       cursor.close();
 
     cursor = newCursor;
-    if (cursor == null)
+    if (cursor == null || cursor.getCount() == 0) {
+      chart.setVisibility(View.GONE);
       return;
+    } else
+      chart.setVisibility(View.VISIBLE);
 
     if ((cursor.getCount() == 0) || !cursor.moveToFirst())
       return;
@@ -204,10 +207,12 @@ public class HomeFragment extends Fragment implements Searchable, LoaderManager.
     chart.getLegend().setEnabled(false);
     chart.invalidate();
 
+    int progress = 100;
     int total = balance + (int) expenseTotal;
-    int progress = (int) expenseTotal * 100 / total;
+    if (total > 0)
+      progress = (int) expenseTotal * 100 / total;
 
-    if (balance < 0)
+    if (balance < 0 || progress > 100)
       progress = 100;
 
     utilization.setProgress(progress);

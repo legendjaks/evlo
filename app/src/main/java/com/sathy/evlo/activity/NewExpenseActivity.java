@@ -1,6 +1,5 @@
 package com.sathy.evlo.activity;
 
-import android.app.DialogFragment;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.net.Uri;
@@ -104,7 +103,8 @@ public class NewExpenseActivity extends AppCompatActivity implements DateSetList
       @Override
       public void onClick(View v) {
 
-        DialogFragment newFragment = new DatePickerFragment(NewExpenseActivity.this, calendar, NewExpenseActivity.this);
+        DatePickerFragment newFragment = new DatePickerFragment();
+        newFragment.setParameters(NewExpenseActivity.this, calendar, NewExpenseActivity.this);
         newFragment.show(getFragmentManager(), "datePicker");
       }
     });

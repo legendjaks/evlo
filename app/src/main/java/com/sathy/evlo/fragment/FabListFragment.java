@@ -190,9 +190,9 @@ public abstract class FabListFragment extends ListFragment implements LoaderMana
             args[i] = String.valueOf(ids[i]);
           }
 
-          getActivity().getContentResolver().delete(uri, null, args);
-          Toast.makeText(getActivity(), ids.length + " items deleted", Toast.LENGTH_SHORT).show();
-          itemsDeleted = true;
+          int count = getActivity().getContentResolver().delete(uri, null, args);
+          Toast.makeText(getActivity(), count + " items deleted", Toast.LENGTH_SHORT).show();
+          itemsDeleted = ids.length == count;
         }
 
         mode.finish(); // Action picked, so close the CAB

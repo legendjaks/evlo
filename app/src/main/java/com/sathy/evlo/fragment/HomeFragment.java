@@ -190,7 +190,7 @@ public class HomeFragment extends Fragment implements Searchable, LoaderManager.
 
     PieDataSet dataSet = new PieDataSet(yAxis, "");
     dataSet.setSliceSpace(3f);
-    dataSet.setSelectionShift(3f);
+    dataSet.setSelectionShift(0f);
     dataSet.setDrawValues(false);
     dataSet.setColors(MaterialColorGenerator.getColors());
 
@@ -206,6 +206,9 @@ public class HomeFragment extends Fragment implements Searchable, LoaderManager.
 
     int total = balance + (int) expenseTotal;
     int progress = (int) expenseTotal * 100 / total;
+
+    if (balance < 0)
+      progress = 100;
 
     utilization.setProgress(progress);
     if (progress >= 80)

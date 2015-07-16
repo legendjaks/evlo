@@ -43,6 +43,7 @@
     <string name="filter_by_source">Filter by Source</string>
     <string name="filter_by_tag">Filter by Tag</string>
     <string name="search_results">Search Results</string>
+    <string name="results_overview">Results Overview</string>
     <string name="utilization">Utilization</string>
 
     <string-array name="income_sources">

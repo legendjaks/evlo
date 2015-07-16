@@ -34,19 +34,25 @@ public abstract class CircleListActivity extends AppCompatActivity implements Lo
   private Class activity;
   private Uri uri;
   private String itemType;
+  private int layout;
 
   public CircleListActivity(Class editActivity, Uri uri, String itemType) {
+    this(editActivity, uri, itemType, R.layout.search_results);
+  }
+
+  public CircleListActivity(Class editActivity, Uri uri, String itemType, int layout) {
     super();
     this.activity = editActivity;
     this.uri = uri;
     this.itemType = itemType;
+    this.layout = layout;
   }
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
-    setContentView(R.layout.search_results);
+    setContentView(layout);
 
     Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
@@ -55,7 +61,6 @@ public abstract class CircleListActivity extends AppCompatActivity implements Lo
     listView.setOnItemClickListener(this);
 
     setSupportActionBar(toolbar);
-    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
     populate();
   }

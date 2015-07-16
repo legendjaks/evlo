@@ -18,6 +18,7 @@ import static com.sathy.evlo.util.TextFormat.quotes;
  */
 public class IncomeResultsActivity extends CircleListActivity {
 
+  private TextView criteria;
   private TextView incomeTotal;
   private String searchCriteria;
   private double total = 0;
@@ -44,7 +45,9 @@ public class IncomeResultsActivity extends CircleListActivity {
     }
 
     super.onCreate(savedInstanceState);
-    TextView criteria = (TextView) findViewById(R.id.search_criteria);
+    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+    criteria = (TextView) findViewById(R.id.search_criteria);
     incomeTotal = (TextView) findViewById(R.id.search_total);
     criteria.setText(header);
   }
@@ -67,8 +70,11 @@ public class IncomeResultsActivity extends CircleListActivity {
   @Override
   public void preprocess(Cursor cursor) {
 
-    if (cursor == null)
+    if (cursor == null || cursor.getCount() == 0) {
+      criteria.setText("No match found. Refine your search.");
+      incomeTotal.setText("");
       return;
+    }
 
     total = 0;
     if ((cursor.getCount() > 0) && cursor.moveToFirst()) {

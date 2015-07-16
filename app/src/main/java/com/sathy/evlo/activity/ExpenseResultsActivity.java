@@ -9,7 +9,6 @@ import android.widget.TextView;
 import com.sathy.evlo.adapter.ExpenseCursorAdapter;
 import com.sathy.evlo.data.Expense;
 import com.sathy.evlo.provider.DatabaseProvider;
-import com.sathy.evlo.util.TextFormat;
 
 import static com.sathy.evlo.util.TextFormat.quotes;
 
@@ -18,6 +17,7 @@ import static com.sathy.evlo.util.TextFormat.quotes;
  */
 public class ExpenseResultsActivity extends CircleListActivity {
 
+  private TextView criteria;
   private TextView expenseTotal;
   private String query;
   private double total = 0;
@@ -54,9 +54,10 @@ public class ExpenseResultsActivity extends CircleListActivity {
     }
 
     super.onCreate(savedInstanceState);
-    TextView criteria = (TextView) findViewById(R.id.search_criteria);
+    criteria = (TextView) findViewById(R.id.search_criteria);
     expenseTotal = (TextView) findViewById(R.id.search_total);
     criteria.setText(header);
+    expenseTotal.setText("");
   }
 
   @Override
@@ -76,19 +77,7 @@ public class ExpenseResultsActivity extends CircleListActivity {
 
   @Override
   public void preprocess(Cursor cursor) {
-
-    if (cursor == null)
-      return;
-
-    total = 0;
-    if ((cursor.getCount() > 0) && cursor.moveToFirst()) {
-
-      do {
-        double amount = cursor.getDouble(cursor.getColumnIndex(Expense.Amount));
-        total += amount;
-      } while (cursor.moveToNext());
-
-      expenseTotal.setText(TextFormat.toDecimalText(total) + " " + getString(R.string.rs));
-    }
+    if (cursor == null || cursor.getCount() == 0)
+      criteria.setText("No match found. Refine your search.");
   }
 }

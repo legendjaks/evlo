@@ -194,7 +194,13 @@ public class SearchExpenseActivity extends AppCompatActivity {
       end = temp;
     }
 
-    Intent intent = new Intent(this, ExpenseResultsActivity.class);
+    Intent intent = null;
+
+    if (!tag_switch.isChecked())
+      intent = new Intent(this, ExpenseResultsOverviewActivity.class);
+    else
+      intent = new Intent(this, ExpenseResultsActivity.class);
+
     intent.putExtra("start_date", start);
     intent.putExtra("end_date", end);
     if (source_switch.isChecked())

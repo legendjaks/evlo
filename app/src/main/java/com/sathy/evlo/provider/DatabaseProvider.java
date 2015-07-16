@@ -9,7 +9,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.sathy.evlo.data.Database;
 import com.sathy.evlo.data.Expense;
@@ -131,8 +130,6 @@ public class DatabaseProvider extends ContentProvider {
           text += " LIMIT 20";
         } else
           text = selection;
-        Log.d("DP", text);
-
         break;
       case EXPENSE_ID:
         queryBuilder.setTables(Expense.TableName);
@@ -251,14 +248,32 @@ public class DatabaseProvider extends ContentProvider {
         }
         break;
       case SOURCES:
+
+        String sq = " Select _id From expense Where source_id = :id ";
         for (String id : selectionArgs) {
+
+          Cursor cursor = db.rawQuery(sq.replace(":id", id), null);
+          if (cursor != null && cursor.getCount() > 0) {
+            cursor.close();
+            continue;
+          }
+
           db.delete(Source.TableName, Source.Id + "=" + id,
               null);
           rowsDeleted++;
         }
         break;
       case TAGS:
+
+        String tq = " Select _id From expense Where tag_id = :id ";
         for (String id : selectionArgs) {
+
+          Cursor cursor = db.rawQuery(tq.replace(":id", id), null);
+          if (cursor != null && cursor.getCount() > 0) {
+            cursor.close();
+            continue;
+          }
+
           db.delete(Tag.TableName, Tag.Id + "=" + id,
               null);
           rowsDeleted++;

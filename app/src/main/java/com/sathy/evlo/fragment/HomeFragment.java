@@ -11,8 +11,10 @@ import android.view.ViewGroup;
 
 import com.sathy.evlo.activity.NewExpenseActivity;
 import com.sathy.evlo.activity.R;
+import com.sathy.evlo.activity.SearchExpenseActivity;
+import com.sathy.evlo.listener.Searchable;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements Searchable {
 
   private FloatingActionButton addExpense;
 
@@ -56,5 +58,11 @@ public class HomeFragment extends Fragment {
   @Override
   public void onDetach() {
     super.onDetach();
+  }
+
+  @Override
+  public void onSearch() {
+    Intent intent = new Intent(getActivity(), SearchExpenseActivity.class);
+    startActivity(intent);
   }
 }

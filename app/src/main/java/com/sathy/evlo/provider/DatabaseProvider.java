@@ -123,10 +123,16 @@ public class DatabaseProvider extends ContentProvider {
         break;
       case EXPENSES:
 
-        text = "SELECT e._id, e.expense_date, e.source_id, e.tag_id, e.amount, e.notes, s.name as source, t.name as tag";
-        text = text + ", (Select total(amount) From Expense where tag_id = e.tag_id) as total ";
-        text = text + " From expense e INNER JOIN source s ON e.source_id = s._id INNER JOIN tag t ON e.tag_id = t._id ";
-        text = text + " Order By t.name ASC, e.expense_date DESC LIMIT 20";
+        if (selection == null) {
+          text = "SELECT e._id, e.expense_date, e.source_id, e.tag_id, e.amount, e.notes, s.name as source, t.name as tag,";
+          text += " (Select total(amount) From Expense where tag_id = e.tag_id) as total ";
+          text += " From expense e INNER JOIN source s ON e.source_id = s._id INNER JOIN tag t ON e.tag_id = t._id ";
+          text += " Order By t.name ASC, e.expense_date DESC ";
+          text += " LIMIT 20";
+        } else
+          text = selection;
+        Log.d("DP", text);
+
         break;
       case EXPENSE_ID:
         queryBuilder.setTables(Expense.TableName);

@@ -12,14 +12,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.sathy.evlo.fragment.ExpensesFragment;
-import com.sathy.evlo.fragment.FabListFragment;
 import com.sathy.evlo.fragment.HomeFragment;
 import com.sathy.evlo.fragment.IncomesFragment;
 import com.sathy.evlo.fragment.SourcesFragment;
 import com.sathy.evlo.fragment.TagsFragment;
+import com.sathy.evlo.listener.Searchable;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -69,10 +68,9 @@ public class MainActivity extends AppCompatActivity {
 
     if (id == R.id.action_search) {
 
-      if (fragment != null && fragment instanceof FabListFragment) {
-        ((FabListFragment) fragment).onSearch();
-      } else
-        Toast.makeText(getApplicationContext(), "Search action is selected!", Toast.LENGTH_SHORT).show();
+      if (fragment != null && fragment instanceof Searchable) {
+        ((Searchable) fragment).onSearch();
+      }
       return true;
     }
 
@@ -88,7 +86,6 @@ public class MainActivity extends AppCompatActivity {
 
   private void showFragment(int id) {
 
-
     String title = getString(R.string.app_name);
     switch (id) {
       case R.id.nav_home:
@@ -97,11 +94,11 @@ public class MainActivity extends AppCompatActivity {
         break;
       case R.id.nav_expenses:
         fragment = new ExpensesFragment();
-        title = getString(R.string.title_expenses);
+        title = getString(R.string.recent_expenses);
         break;
       case R.id.nav_incomes:
         fragment = new IncomesFragment();
-        title = getString(R.string.title_incomes);
+        title = getString(R.string.recent_incomes);
         break;
       case R.id.nav_tags:
         fragment = new TagsFragment();

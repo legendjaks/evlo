@@ -8,7 +8,6 @@ import android.widget.TextView;
 
 import com.sathy.evlo.activity.R;
 import com.sathy.evlo.data.Expense;
-import com.sathy.evlo.data.Source;
 import com.sathy.evlo.holder.ExpenseViewHolder;
 import com.sathy.evlo.listener.ListItemPartListener;
 import com.sathy.evlo.model.ExpenseTotal;
@@ -31,7 +30,7 @@ public class ExpenseCursorAdapter extends SectionedCircleCursorAdapter {
 
     ExpenseTotal header = new ExpenseTotal();
     header.setTag(cursor.getString(cursor.getColumnIndexOrThrow(Expense.Tag)));
-    header.setTotal(context.getString(R.string.rs) + " " + TextFormat.toDecimalText(cursor.getDouble(cursor.getColumnIndexOrThrow(Expense.Total))));
+    header.setTotal(TextFormat.toDecimalText(cursor.getDouble(cursor.getColumnIndexOrThrow(Expense.Total))) + " " + context.getString(R.string.rs));
 
     return header;
   }
@@ -65,7 +64,7 @@ public class ExpenseCursorAdapter extends SectionedCircleCursorAdapter {
 
     holder.getId().setText(cursor.getString(cursor.getColumnIndexOrThrow(Expense.Id)));
     holder.getDate().setText(TextFormat.toDateText(cursor.getString(cursor.getColumnIndexOrThrow(Expense.ExpenseDate))));
-    holder.getAmount().setText(context.getString(R.string.rs) + " " + TextFormat.toDecimalText(amount));
+    holder.getAmount().setText(TextFormat.toDecimalText(amount) + " " + context.getString(R.string.rs));
     holder.getNotes().setText(cursor.getString(cursor.getColumnIndexOrThrow(Expense.Notes)));
     holder.getSource().setText(cursor.getString(cursor.getColumnIndexOrThrow(Expense.SourceId)));
     holder.setSourceName(cursor.getString(cursor.getColumnIndexOrThrow(Expense.Source)));

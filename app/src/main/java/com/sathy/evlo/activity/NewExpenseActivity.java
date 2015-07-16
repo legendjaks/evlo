@@ -69,13 +69,13 @@ public class NewExpenseActivity extends AppCompatActivity implements DateSetList
 
     sourceAdapter = new SimpleCursorAdapter(
         this,
-        R.layout.source_spinner,
+        R.layout.spinner,
         cursor,
         Source.Columns,
         columns,
         0
     );
-    sourceAdapter.setDropDownViewResource(R.layout.source_spinner);
+    sourceAdapter.setDropDownViewResource(R.layout.spinner);
     source.setAdapter(sourceAdapter);
 
     cursor = getContentResolver().query(
@@ -88,13 +88,13 @@ public class NewExpenseActivity extends AppCompatActivity implements DateSetList
 
     tagAdapter = new SimpleCursorAdapter(
         this,
-        R.layout.source_spinner,
+        R.layout.spinner,
         cursor,
         Tag.Columns,
         columns,
         0
     );
-    tagAdapter.setDropDownViewResource(R.layout.source_spinner);
+    tagAdapter.setDropDownViewResource(R.layout.spinner);
     tag.setAdapter(tagAdapter);
 
     setSupportActionBar(toolbar);

@@ -46,7 +46,7 @@ public abstract class CircleListActivity extends AppCompatActivity implements Lo
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
-    setContentView(R.layout.search_income_results);
+    setContentView(R.layout.search_results);
 
     Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 

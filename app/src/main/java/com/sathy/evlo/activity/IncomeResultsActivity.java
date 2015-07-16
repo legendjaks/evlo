@@ -4,8 +4,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.widget.CursorAdapter;
-import android.support.v7.widget.Toolbar;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.sathy.evlo.adapter.IncomeCursorAdapter;
@@ -13,7 +11,7 @@ import com.sathy.evlo.data.Income;
 import com.sathy.evlo.provider.DatabaseProvider;
 import com.sathy.evlo.util.TextFormat;
 
-import static com.sathy.evlo.util.TextFormat.*;
+import static com.sathy.evlo.util.TextFormat.quotes;
 
 /**
  * Created by sathy on 15/07/15.
@@ -49,7 +47,6 @@ public class IncomeResultsActivity extends CircleListActivity {
     TextView criteria = (TextView) findViewById(R.id.search_criteria);
     incomeTotal = (TextView) findViewById(R.id.search_total);
     criteria.setText(header);
-    incomeTotal.setText(getString(R.string.rs)+ " 0.0");
   }
 
   @Override
@@ -80,7 +77,7 @@ public class IncomeResultsActivity extends CircleListActivity {
         total += amount;
       } while (cursor.moveToNext());
 
-      incomeTotal.setText(getString(R.string.rs)+ " " + TextFormat.toDecimalText(total));
+      incomeTotal.setText(TextFormat.toDecimalText(total) + " " + getString(R.string.rs));
     }
   }
 }

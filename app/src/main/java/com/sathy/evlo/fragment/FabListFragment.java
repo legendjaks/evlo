@@ -24,11 +24,11 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.sathy.evlo.activity.R;
-import com.sathy.evlo.adapter.CircledCursorAdapter;
 import com.sathy.evlo.listener.ListItemPartListener;
 import com.sathy.evlo.listener.MultiSelectable;
+import com.sathy.evlo.listener.Searchable;
 
-public abstract class FabListFragment extends ListFragment implements LoaderManager.LoaderCallbacks<Cursor>, ActionMode.Callback, ListItemPartListener {
+public abstract class FabListFragment extends ListFragment implements LoaderManager.LoaderCallbacks<Cursor>, ActionMode.Callback, ListItemPartListener, Searchable {
 
   private FloatingActionButton add;
   private View view;
@@ -219,6 +219,5 @@ public abstract class FabListFragment extends ListFragment implements LoaderMana
   }
 
   public void onSearch() {
-
   }
 }

@@ -14,12 +14,15 @@
     <string name="title_home">Home</string>
     <string name="title_sources">Sources</string>
 
+    <string name="recent_expenses">Recent Expenses</string>
+    <string name="recent_incomes">Recent Incomes</string>
 
     <string name="new_expense">Add New Expense</string>
     <string name="edit_expense">Edit Expense</string>
     <string name="new_income">Add New Income</string>
     <string name="edit_income">Edit Income</string>
     <string name="search_income">Search Income</string>
+    <string name="search_expense">Search Expense</string>
     <string name="new_tag">Add New Tag</string>
     <string name="edit_tag">Edit Tag</string>
     <string name="new_source">Add New Source</string>
@@ -28,6 +31,7 @@
     <string name="today">Today</string>
     <string name="empty">EMPTY</string>
     <string name="rs">\u20B9</string>
+    <string name="zero_rs">0.0 \u20B9</string>
     <string name="amount">Amount</string>
     <string name="source">Source</string>
     <string name="tag">Tag</string>
@@ -36,8 +40,8 @@
     <string name="paid_by">Paid by</string>
     <string name="from">From</string>
     <string name="to">To</string>
-    <string name="include_source">Include Source</string>
-    <string name="search_criteria">From :from to :to</string>
+    <string name="filter_by_source">Filter by Source</string>
+    <string name="filter_by_tag">Filter by Tag</string>
     <string name="search_results">Search Results</string>
 
     <string-array name="income_sources">

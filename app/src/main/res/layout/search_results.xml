@@ -20,15 +20,15 @@
                   android:layout_width="fill_parent"
                   android:layout_height="48dp"
                   android:layout_marginTop="8dp"
-                  android:background="@color/primary_dark">
+                  android:background="@color/fab">
 
         <TextView
             android:id="@+id/search_criteria"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="16dp"
-            android:layout_marginLeft="16dp"
             android:layout_gravity="left|center"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
             android:fontFamily="sans-serif"
             android:text="Header"
             android:textColor="@color/text_primary"
@@ -38,13 +38,13 @@
             android:id="@+id/search_total"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="16dp"
-            android:layout_marginLeft="16dp"
             android:layout_gravity="right|center"
-            android:gravity="right"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
             android:layout_weight="1"
             android:fontFamily="sans-serif"
-            android:text="1234.00"
+            android:gravity="right"
+            android:text="@string/zero_rs"
             android:textColor="@color/text_primary"
             android:textSize="14sp"/>
 

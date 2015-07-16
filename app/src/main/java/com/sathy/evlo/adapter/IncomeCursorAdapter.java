@@ -35,7 +35,7 @@ public class IncomeCursorAdapter extends CircledCursorAdapter {
 
         holder.getId().setText(cursor.getString(cursor.getColumnIndexOrThrow(Income.Id)));
         holder.getDate().setText(TextFormat.toDateText(cursor.getString(cursor.getColumnIndexOrThrow(Income.IncomeDate))));
-        holder.getAmount().setText(context.getString(R.string.rs) + " " + TextFormat.toDecimalText(amount));
+        holder.getAmount().setText(TextFormat.toDecimalText(amount) + " " + context.getString(R.string.rs));
         holder.getNotes().setText(cursor.getString(cursor.getColumnIndexOrThrow(Income.Notes)));
         holder.getSource().setText(cursor.getString(cursor.getColumnIndexOrThrow(Income.Source)));
 

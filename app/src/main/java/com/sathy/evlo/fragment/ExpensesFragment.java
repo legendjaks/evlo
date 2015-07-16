@@ -1,13 +1,13 @@
 package com.sathy.evlo.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.widget.CursorAdapter;
 import android.view.View;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.sathy.evlo.activity.NewExpenseActivity;
-import com.sathy.evlo.adapter.CircledCursorAdapter;
+import com.sathy.evlo.activity.SearchExpenseActivity;
 import com.sathy.evlo.adapter.ExpenseCursorAdapter;
 import com.sathy.evlo.data.Expense;
 import com.sathy.evlo.provider.DatabaseProvider;
@@ -44,5 +44,11 @@ public class ExpensesFragment extends FabListFragment {
       long _id = adapter.getItemId(position);
       edit(_id);
     }
+  }
+
+  @Override
+  public void onSearch() {
+    Intent intent = new Intent(getActivity(), SearchExpenseActivity.class);
+    startActivity(intent);
   }
 }

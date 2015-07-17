@@ -29,7 +29,7 @@
     <string name="edit_source">Edit Source</string>
 
     <string name="today">Today</string>
-    <string name="empty">EMPTY</string>
+    <string name="empty">It\'s lonely here...</string>
     <string name="rs">\u20B9</string>
     <string name="zero_rs">0.0 \u20B9</string>
     <string name="amount">Amount</string>
@@ -45,6 +45,7 @@
     <string name="search_results">Search Results</string>
     <string name="results_overview">Results Overview</string>
     <string name="utilization">Utilization</string>
+    <string name="no_data">It\'s lonely here. Start track your expense...</string>
 
     <string-array name="income_sources">
         <item>SALARY</item>

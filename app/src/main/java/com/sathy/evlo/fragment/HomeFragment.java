@@ -16,6 +16,7 @@ import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -32,6 +33,7 @@ import com.sathy.evlo.activity.SearchExpenseActivity;
 import com.sathy.evlo.data.DbUtil;
 import com.sathy.evlo.data.Expense;
 import com.sathy.evlo.listener.Searchable;
+import com.sathy.evlo.model.PreviewInfo;
 import com.sathy.evlo.provider.DatabaseProvider;
 import com.sathy.evlo.util.MaterialColorGenerator;
 
@@ -50,6 +52,8 @@ public class HomeFragment extends Fragment implements Searchable, LoaderManager.
   private TextView month;
   private TextView utilized;
   private TextView totalAmount;
+  private TextView no_data;
+  private LinearLayout utilization_layout;
   private Typeface font;
   private Context context;
 
@@ -82,6 +86,8 @@ public class HomeFragment extends Fragment implements Searchable, LoaderManager.
       }
     });
 
+    utilization_layout = (LinearLayout) view.findViewById(R.id.utilized_layout);
+    no_data = (TextView) view.findViewById(R.id.no_data);
     month = (TextView) view.findViewById(R.id.month);
     utilized = (TextView) view.findViewById(R.id.utilized);
     totalAmount = (TextView) view.findViewById(R.id.total);
@@ -163,6 +169,38 @@ public class HomeFragment extends Fragment implements Searchable, LoaderManager.
   @Override
   public void onLoadFinished(Loader<Cursor> loader, Cursor newCursor) {
 
+    PreviewInfo info = DbUtil.getBalance(getView().getContext());
+    if (info.getIncome() != 0 || info.getExpense() != 0) {
+
+      utilization_layout.setVisibility(View.VISIBLE);
+      utilization.setVisibility(View.VISIBLE);
+      no_data.setVisibility(View.GONE);
+
+      if (info.getExpense() != 0)
+        chart.setVisibility(View.VISIBLE);
+
+      int progress = 100;
+      if (info.getIncome() > 0)
+        progress = info.getExpense() * 100 / info.getIncome();
+
+      if (progress > 100)
+        progress = 100;
+
+      utilization.setProgress(progress);
+      if (progress >= 80)
+        utilization.setProgressDrawable(ContextCompat.getDrawable(context, R.drawable.red_progress));
+      else
+        utilization.setProgressDrawable(ContextCompat.getDrawable(context, R.drawable.green_progress));
+
+      utilized.setText(currency + info.getExpense() + " utilized");
+      totalAmount.setText(currency + String.valueOf(info.getIncome()));
+    } else {
+      utilization_layout.setVisibility(View.GONE);
+      utilization.setVisibility(View.GONE);
+      chart.setVisibility(View.GONE);
+      no_data.setVisibility(View.VISIBLE);
+    }
+
     if (cursor != null)
       cursor.close();
 
@@ -170,24 +208,20 @@ public class HomeFragment extends Fragment implements Searchable, LoaderManager.
     if (cursor == null || cursor.getCount() == 0) {
       chart.setVisibility(View.GONE);
       return;
-    } else
-      chart.setVisibility(View.VISIBLE);
+    }
 
-    if ((cursor.getCount() == 0) || !cursor.moveToFirst())
+    if (!cursor.moveToFirst())
       return;
 
     xAxis.clear();
     yAxis.clear();
 
-    int balance = (int) DbUtil.getBalance(getView().getContext());
-    float expenseTotal = 0;
     int index = 0;
     do {
       float total = (float) cursor.getDouble(cursor.getColumnIndex(Expense.Total));
       xAxis.add(cursor.getString(cursor.getColumnIndex(Expense.Tag)));
       yAxis.add(new Entry(total, index));
 
-      expenseTotal += total;
       index++;
     } while (cursor.moveToNext());
 
@@ -207,22 +241,7 @@ public class HomeFragment extends Fragment implements Searchable, LoaderManager.
     chart.getLegend().setEnabled(false);
     chart.invalidate();
 
-    int progress = 100;
-    int total = balance + (int) expenseTotal;
-    if (total > 0)
-      progress = (int) expenseTotal * 100 / total;
 
-    if (balance < 0 || progress > 100)
-      progress = 100;
-
-    utilization.setProgress(progress);
-    if (progress >= 80)
-      utilization.setProgressDrawable(ContextCompat.getDrawable(context, R.drawable.red_progress));
-    else
-      utilization.setProgressDrawable(ContextCompat.getDrawable(context, R.drawable.green_progress));
-
-    utilized.setText(currency + (int) expenseTotal + " utilized");
-    totalAmount.setText(currency + String.valueOf(total));
   }
 
   @Override

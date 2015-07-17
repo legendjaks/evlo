@@ -6,6 +6,7 @@
              tools:context="com.sathy.evlo.fragment.HomeFragment">
 
     <LinearLayout
+        android:id="@+id/data"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="16dp"
@@ -25,6 +26,7 @@
             android:textSize="16sp"/>
 
         <LinearLayout
+            android:id="@+id/utilized_layout"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
@@ -69,6 +71,19 @@
             android:layout_height="wrap_content"/>
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/no_data"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:fontFamily="sans-serif-condensed"
+        android:text="@string/no_data"
+        android:textColor="@color/item_secondary"
+        android:textSize="25sp"
+        android:visibility="gone"/>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

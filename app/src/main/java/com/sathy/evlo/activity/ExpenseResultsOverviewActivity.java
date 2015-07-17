@@ -9,6 +9,7 @@ import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.animation.Easing;
@@ -37,6 +38,7 @@ public class ExpenseResultsOverviewActivity extends AppCompatActivity implements
 
   private ArrayList<Long> tagIds;
 
+  private TextView criteria;
   private TextView expenseTotal;
   private String from;
   private String to;
@@ -75,7 +77,7 @@ public class ExpenseResultsOverviewActivity extends AppCompatActivity implements
     setSupportActionBar(toolbar);
     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-    TextView criteria = (TextView) findViewById(R.id.search_criteria);
+    criteria = (TextView) findViewById(R.id.search_criteria);
     expenseTotal = (TextView) findViewById(R.id.search_total);
     criteria.setText(header);
 
@@ -126,8 +128,14 @@ public class ExpenseResultsOverviewActivity extends AppCompatActivity implements
       cursor.close();
 
     cursor = newCursor;
-    if (cursor == null)
+
+    if (cursor == null || cursor.getCount() == 0) {
+      criteria.setText("No match found. Refine your search.");
+      expenseTotal.setText("");
+      chart.setVisibility(View.GONE);
       return;
+    } else
+      chart.setVisibility(View.VISIBLE);
 
     if ((cursor.getCount() == 0) || !cursor.moveToFirst())
       return;

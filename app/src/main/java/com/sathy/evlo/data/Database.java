@@ -44,10 +44,16 @@ public class Database extends SQLiteOpenHelper {
     database.execSQL("INSERT INTO tag (name) VALUES ('HOME') ");
     database.execSQL("INSERT INTO tag (name) VALUES ('OFFICE') ");
     database.execSQL("INSERT INTO tag (name) VALUES ('GROCERIES') ");
+    database.execSQL("INSERT INTO tag (name) VALUES ('DRESS') ");
     database.execSQL("INSERT INTO tag (name) VALUES ('TRAVEL') ");
     database.execSQL("INSERT INTO tag (name) VALUES ('FOOD') ");
     database.execSQL("INSERT INTO tag (name) VALUES ('EAT OUT') ");
-    database.execSQL("INSERT INTO tag (name) VALUES ('SNACKS') ");
+    database.execSQL("INSERT INTO tag (name) VALUES ('HEALTH') ");
+    database.execSQL("INSERT INTO tag (name) VALUES ('ELECTRONICS') ");
+    database.execSQL("INSERT INTO tag (name) VALUES ('ENTERTAINMENT') ");
+    database.execSQL("INSERT INTO tag (name) VALUES ('EDUCATION') ");
+    database.execSQL("INSERT INTO tag (name) VALUES ('SPORTS') ");
+    database.execSQL("INSERT INTO tag (name) VALUES ('LOAN') ");
     database.execSQL("INSERT INTO tag (name) VALUES ('FUEL') ");
   }
 

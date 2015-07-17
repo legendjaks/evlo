@@ -7,6 +7,8 @@ import java.util.Map;
  */
 public interface MultiSelectable {
   void clear();
+
   Map<String, Boolean> getItemsChecked();
+
   ListItemPartListener getListItemPartListener();
 }

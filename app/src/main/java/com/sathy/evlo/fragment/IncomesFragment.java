@@ -6,7 +6,6 @@ import android.support.v4.widget.CursorAdapter;
 
 import com.sathy.evlo.activity.NewIncomeActivity;
 import com.sathy.evlo.activity.SearchIncomeActivity;
-import com.sathy.evlo.adapter.CircledCursorAdapter;
 import com.sathy.evlo.adapter.IncomeCursorAdapter;
 import com.sathy.evlo.data.Income;
 import com.sathy.evlo.provider.DatabaseProvider;

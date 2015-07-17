@@ -15,15 +15,6 @@ public class Source extends TableEntity {
     super();
   }
 
-  public Source(String name) {
-    this(0, name);
-  }
-
-  public Source(long id, String name) {
-    this.id = id;
-    this.name = name;
-  }
-
   public String getName() {
     return name;
   }

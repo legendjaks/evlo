@@ -65,13 +65,13 @@ public abstract class CircleListActivity extends AppCompatActivity implements Lo
     populate();
   }
 
-  public abstract CursorAdapter getAdapter(Context context);
+  protected abstract CursorAdapter getAdapter(Context context);
 
-  public abstract String[] getColumns();
+  protected abstract String[] getColumns();
 
-  public abstract String getCriteria();
+  protected abstract String getCriteria();
 
-  public abstract void preprocess(Cursor cursor);
+  protected abstract void preprocess(Cursor cursor);
 
   private void populate() {
 
@@ -88,9 +88,8 @@ public abstract class CircleListActivity extends AppCompatActivity implements Lo
   @Override
   public Loader<Cursor> onCreateLoader(int id, Bundle args) {
 
-    CursorLoader cursorLoader = new CursorLoader(this,
+    return new CursorLoader(this,
         uri, getColumns(), getCriteria(), null, null);
-    return cursorLoader;
   }
 
   @Override
@@ -128,7 +127,7 @@ public abstract class CircleListActivity extends AppCompatActivity implements Lo
     listView.setItemChecked(index, status);
 
     long[] ids = listView.getCheckedItemIds();
-    if ((ids == null || ids.length == 0) && actionMode != null) {
+    if ((ids.length == 0) && actionMode != null) {
       actionMode.finish();
     } else if (actionMode == null) {
       actionMode = startSupportActionMode(this);
@@ -160,7 +159,7 @@ public abstract class CircleListActivity extends AppCompatActivity implements Lo
       case R.id.action_delete:
 
         long[] ids = listView.getCheckedItemIds();
-        if (ids != null && ids.length > 0) {
+        if (ids.length > 0) {
           String[] args = new String[ids.length];
           for (int i = 0; i < ids.length; i++) {
             args[i] = String.valueOf(ids[i]);
@@ -187,7 +186,7 @@ public abstract class CircleListActivity extends AppCompatActivity implements Lo
       return;
 
     long[] ids = listView.getCheckedItemIds();
-    if (ids != null && ids.length > 0) {
+    if (ids.length > 0) {
       ((MultiSelectable) adapter).clear();
       listView.clearChoices();
       getSupportLoaderManager().restartLoader(0, null, this);

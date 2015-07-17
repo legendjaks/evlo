@@ -195,7 +195,7 @@ public class SearchExpenseActivity extends AppCompatActivity {
       end = temp;
     }
 
-    Intent intent = null;
+    Intent intent;
 
     if (!tag_switch.isChecked())
       intent = new Intent(this, ExpenseResultsOverviewActivity.class);

@@ -4,7 +4,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.sathy.evlo.activity.R;
-import com.sathy.evlo.adapter.CircledCursorAdapter;
 import com.sathy.evlo.listener.MultiSelectable;
 import com.sathy.evlo.util.TextFormat;
 

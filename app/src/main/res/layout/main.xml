@@ -1,7 +1,7 @@
 <android.support.v4.widget.DrawerLayout
+    android:id="@+id/drawer_layout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="false">
@@ -18,14 +18,14 @@
 
             <include
                 android:id="@+id/toolbar"
-                layout="@layout/toolbar" />
+                layout="@layout/toolbar"/>
         </LinearLayout>
 
         <FrameLayout
             android:id="@+id/body"
             android:layout_width="fill_parent"
             android:layout_height="0dp"
-            android:layout_weight="1" />
+            android:layout_weight="1"/>
     </LinearLayout>
 
     <android.support.design.widget.NavigationView
@@ -36,6 +36,6 @@
         app:headerLayout="@layout/drawer_header"
         app:itemIconTint="@color/item_text"
         app:itemTextColor="@color/item_text"
-        app:menu="@menu/drawer_items" />
+        app:menu="@menu/drawer_items"/>
 
 </android.support.v4.widget.DrawerLayout>

@@ -27,11 +27,13 @@ import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.Highlight;
+import com.sathy.evlo.activity.ExpenseResultsActivity;
 import com.sathy.evlo.activity.NewExpenseActivity;
 import com.sathy.evlo.activity.R;
 import com.sathy.evlo.activity.SearchExpenseActivity;
 import com.sathy.evlo.data.DbUtil;
 import com.sathy.evlo.data.Expense;
+import com.sathy.evlo.data.Tag;
 import com.sathy.evlo.listener.Searchable;
 import com.sathy.evlo.model.PreviewInfo;
 import com.sathy.evlo.provider.DatabaseProvider;
@@ -39,6 +41,7 @@ import com.sathy.evlo.util.MaterialColorGenerator;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import static com.sathy.evlo.util.TextFormat.dateValue;
 import static com.sathy.evlo.util.TextFormat.getCurrentMonth;
@@ -57,8 +60,7 @@ public class HomeFragment extends Fragment implements Searchable, LoaderManager.
   private Typeface font;
   private Context context;
 
-  private ArrayList<String> xAxis;
-  private ArrayList<Entry> yAxis;
+  private ArrayList<Long> tagIds;
   private String currency;
   private Cursor cursor;
 
@@ -76,7 +78,7 @@ public class HomeFragment extends Fragment implements Searchable, LoaderManager.
     super.onActivityCreated(savedInstanceState);
 
     final View view = getView();
-    context = view.getContext();
+    context = view != null ? view.getContext() : null;
     addExpense = (FloatingActionButton) view.findViewById(R.id.fab);
     addExpense.setOnClickListener(new View.OnClickListener() {
       @Override
@@ -95,8 +97,7 @@ public class HomeFragment extends Fragment implements Searchable, LoaderManager.
     chart = (PieChart) view.findViewById(R.id.chart);
 
     font = Typeface.create("sans-serif", Typeface.NORMAL);
-    xAxis = new ArrayList<String>();
-    yAxis = new ArrayList<Entry>();
+    tagIds = new ArrayList<>();
 
     initialize();
   }
@@ -113,6 +114,7 @@ public class HomeFragment extends Fragment implements Searchable, LoaderManager.
     chart.setDragDecelerationFrictionCoef(0.95f);
     chart.setCenterTextTypeface(font);
     chart.setCenterTextSize(14);
+    chart.setCenterText("DISTRIBUTION");
 
     chart.setDrawHoleEnabled(true);
     chart.setHoleColorTransparent(true);
@@ -157,19 +159,18 @@ public class HomeFragment extends Fragment implements Searchable, LoaderManager.
   public Loader<Cursor> onCreateLoader(int id, Bundle args) {
 
     String[] dates = getCurrentMonthDates();
-    String query = "SELECT t.name as tag, total(e.amount) as total From expense e, Tag t Where e.tag_id = t._id ";
+    String query = "SELECT t._id, t.name as tag, total(e.amount) as total From expense e, Tag t Where e.tag_id = t._id ";
     query += " And e.expense_date >= " + quotes(dates[0]) + " And e.expense_date <= " + quotes(dates[1]);
     query += " Group By t.name Order BY total ASC";
 
-    CursorLoader cursorLoader = new CursorLoader(context,
+    return new CursorLoader(context,
         DatabaseProvider.EXPENSE_URI, Expense.Columns, query, null, null);
-    return cursorLoader;
   }
 
   @Override
   public void onLoadFinished(Loader<Cursor> loader, Cursor newCursor) {
 
-    PreviewInfo info = DbUtil.getBalance(getView().getContext());
+    PreviewInfo info = DbUtil.getBalance(context);
     if (info.getIncome() != 0 || info.getExpense() != 0) {
 
       utilization_layout.setVisibility(View.VISIBLE);
@@ -213,14 +214,17 @@ public class HomeFragment extends Fragment implements Searchable, LoaderManager.
     if (!cursor.moveToFirst())
       return;
 
-    xAxis.clear();
-    yAxis.clear();
+    tagIds.clear();
+
+    List<String> xAxis = new ArrayList<>();
+    List<Entry> yAxis = new ArrayList<>();
 
     int index = 0;
     do {
       float total = (float) cursor.getDouble(cursor.getColumnIndex(Expense.Total));
       xAxis.add(cursor.getString(cursor.getColumnIndex(Expense.Tag)));
       yAxis.add(new Entry(total, index));
+      tagIds.add(cursor.getLong(cursor.getColumnIndex(Tag.Id)));
 
       index++;
     } while (cursor.moveToNext());
@@ -235,13 +239,10 @@ public class HomeFragment extends Fragment implements Searchable, LoaderManager.
     data.setValueTextSize(12f);
     data.setValueTextColor(Color.WHITE);
 
-    chart.setCenterText("DISTRIBUTION");
     chart.setData(data);
     chart.highlightValues(null);
     chart.getLegend().setEnabled(false);
     chart.invalidate();
-
-
   }
 
   @Override
@@ -269,7 +270,13 @@ public class HomeFragment extends Fragment implements Searchable, LoaderManager.
     if (e == null)
       return;
 
-    chart.setCenterText(xAxis.get(e.getXIndex()) + " " + currency + (int) e.getVal());
+    String[] dates = getCurrentMonthDates();
+    Intent intent = new Intent(getActivity(), ExpenseResultsActivity.class);
+    intent.putExtra("start_date", dates[0]);
+    intent.putExtra("end_date", dates[1]);
+    intent.putExtra("tag", String.valueOf(tagIds.get(e.getXIndex())));
+
+    startActivity(intent);
   }
 
   @Override

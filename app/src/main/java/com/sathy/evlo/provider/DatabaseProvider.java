@@ -143,7 +143,7 @@ public class DatabaseProvider extends ContentProvider {
     if (db == null)
       db = evlo.getWritableDatabase();
 
-    Cursor cursor = null;
+    Cursor cursor;
     if (text != null) {
       cursor = db.rawQuery(text, null);
     } else {
@@ -163,7 +163,7 @@ public class DatabaseProvider extends ContentProvider {
     if (db == null)
       db = evlo.getWritableDatabase();
 
-    long id = 0;
+    long id;
     switch (uriType) {
       case INCOMES:
         id = db.insert(Income.TableName, null, values);
@@ -192,8 +192,8 @@ public class DatabaseProvider extends ContentProvider {
     if (db == null)
       db = evlo.getWritableDatabase();
 
-    int rowsUpdated = 0;
-    String id = null;
+    int rowsUpdated;
+    String id;
     switch (uriType) {
       case INCOME_ID:
         id = uri.getLastPathSegment();

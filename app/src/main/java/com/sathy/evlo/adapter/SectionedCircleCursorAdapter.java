@@ -2,7 +2,6 @@ package com.sathy.evlo.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.widget.CursorAdapter;
 
 import com.sathy.evlo.listener.ListItemPartListener;
 import com.sathy.evlo.listener.MultiSelectable;

@@ -38,8 +38,8 @@ public class IncomeResultsActivity extends CircleListActivity {
       String source = extras.getString("source");
 
       searchCriteria = " income_date >= " + quotes(from) + " And income_date <= " + quotes(to);
-      if(source != null)
-      searchCriteria += " And source = " + quotes(source);
+      if (source != null)
+        searchCriteria += " And source = " + quotes(source);
 
       header = from + " to " + to;
     }

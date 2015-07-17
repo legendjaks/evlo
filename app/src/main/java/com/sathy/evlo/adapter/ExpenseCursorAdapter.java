@@ -44,7 +44,7 @@ public class ExpenseCursorAdapter extends SectionedCircleCursorAdapter {
 
   @Override
   protected void bindSectionView(View view, Context context, int i, Object o) {
-    SectionHolder holder = (SectionHolder)view.getTag();
+    SectionHolder holder = (SectionHolder) view.getTag();
     ExpenseTotal header = (ExpenseTotal) o;
     holder.tag.setText(header.getTag());
     holder.total.setText(header.getTotal());
@@ -77,7 +77,7 @@ public class ExpenseCursorAdapter extends SectionedCircleCursorAdapter {
     private TextView tag;
     private TextView total;
 
-    public SectionHolder(View view){
+    public SectionHolder(View view) {
       tag = (TextView) view.findViewById(R.id.row_tag);
       total = (TextView) view.findViewById(R.id.row_total);
     }

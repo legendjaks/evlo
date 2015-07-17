@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="fill_parent"
-                android:layout_height="48dp"
-    android:background="@color/primary_dark">
+              android:layout_width="fill_parent"
+              android:layout_height="48dp"
+              android:background="@color/primary_dark">
 
     <TextView
         android:id="@+id/row_tag"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="16dp"
-        android:layout_marginLeft="16dp"
         android:layout_gravity="left|center"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
         android:fontFamily="sans-serif"
         android:text="Header"
         android:textColor="@color/text_primary"
@@ -20,12 +20,12 @@
         android:id="@+id/row_total"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="16dp"
-        android:layout_marginLeft="16dp"
         android:layout_gravity="right|center"
-        android:gravity="right"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
         android:layout_weight="1"
         android:fontFamily="sans-serif"
+        android:gravity="right"
         android:text="1234.00"
         android:textColor="@color/text_primary"
         android:textSize="14sp"/>

@@ -23,6 +23,7 @@ import com.sathy.evlo.data.Expense;
 import com.sathy.evlo.data.Tag;
 import com.sathy.evlo.provider.DatabaseProvider;
 import com.sathy.evlo.util.MaterialColorGenerator;
+import com.sathy.evlo.util.TextFormat;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +49,6 @@ public class ExpenseResultsOverviewActivity extends AppCompatActivity implements
   private Cursor cursor;
 
   public ExpenseResultsOverviewActivity() {
-    //super(NewExpenseActivity.class, DatabaseProvider.EXPENSE_URI, DatabaseProvider.EXPENSE_ITEM_TYPE
   }
 
   @Override
@@ -172,7 +172,7 @@ public class ExpenseResultsOverviewActivity extends AppCompatActivity implements
     chart.getLegend().setEnabled(false);
     chart.invalidate();
 
-    expenseTotal.setText(getString(R.string.rs) + " " + String.valueOf(amount));
+    expenseTotal.setText(getString(R.string.rs) + " " + TextFormat.toDecimalText(amount));
   }
 
   @Override

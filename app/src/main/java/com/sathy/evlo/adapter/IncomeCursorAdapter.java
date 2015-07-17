@@ -16,29 +16,29 @@ import com.sathy.evlo.util.TextFormat;
  */
 public class IncomeCursorAdapter extends CircledCursorAdapter {
 
-    public IncomeCursorAdapter(Context context, ListItemPartListener listener) {
-        super(context, listener);
-    }
+  public IncomeCursorAdapter(Context context, ListItemPartListener listener) {
+    super(context, listener);
+  }
 
-    @Override
-    public View newView(Context context, Cursor cursor, ViewGroup parent) {
-        View view = inflater.inflate(R.layout.income_item_row, parent, false);
-        view.setTag(new IncomeViewHolder(view, this));
-        return view;
-    }
+  @Override
+  public View newView(Context context, Cursor cursor, ViewGroup parent) {
+    View view = inflater.inflate(R.layout.income_item_row, parent, false);
+    view.setTag(new IncomeViewHolder(view, this));
+    return view;
+  }
 
-    @Override
-    public void bindView(View view, Context context, Cursor cursor) {
+  @Override
+  public void bindView(View view, Context context, Cursor cursor) {
 
-        IncomeViewHolder holder = (IncomeViewHolder) view.getTag();
-        double amount = cursor.getDouble(cursor.getColumnIndexOrThrow(Income.Amount));
+    IncomeViewHolder holder = (IncomeViewHolder) view.getTag();
+    double amount = cursor.getDouble(cursor.getColumnIndexOrThrow(Income.Amount));
 
-        holder.getId().setText(cursor.getString(cursor.getColumnIndexOrThrow(Income.Id)));
-        holder.getDate().setText(TextFormat.toDateText(cursor.getString(cursor.getColumnIndexOrThrow(Income.IncomeDate))));
-        holder.getAmount().setText(TextFormat.toDecimalText(amount) + " " + context.getString(R.string.rs));
-        holder.getNotes().setText(cursor.getString(cursor.getColumnIndexOrThrow(Income.Notes)));
-        holder.getSource().setText(cursor.getString(cursor.getColumnIndexOrThrow(Income.Source)));
+    holder.getId().setText(cursor.getString(cursor.getColumnIndexOrThrow(Income.Id)));
+    holder.getDate().setText(TextFormat.toDateText(cursor.getString(cursor.getColumnIndexOrThrow(Income.IncomeDate))));
+    holder.getAmount().setText(TextFormat.toDecimalText(amount) + " " + context.getString(R.string.rs));
+    holder.getNotes().setText(cursor.getString(cursor.getColumnIndexOrThrow(Income.Notes)));
+    holder.getSource().setText(cursor.getString(cursor.getColumnIndexOrThrow(Income.Source)));
 
-        holder.update();
-    }
+    holder.update();
+  }
 }

@@ -6,7 +6,6 @@ import android.widget.TextView;
 
 import com.sathy.evlo.activity.R;
 import com.sathy.evlo.adapter.CircledCursorAdapter;
-import com.sathy.evlo.util.TextFormat;
 
 /**
  * Created by sathy on 2/7/15.

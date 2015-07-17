@@ -124,12 +124,12 @@ public class SearchIncomeActivity extends AppCompatActivity {
   private boolean search() {
 
     String start = from.getText().toString();
-    if (start.length() == 0)return false;
+    if (start.length() == 0) return false;
 
     String end = to.getText().toString();
-    if (end.length() == 0)return false;
+    if (end.length() == 0) return false;
 
-    if(start.compareTo(end)> 0){
+    if (start.compareTo(end) > 0) {
       String temp = start;
       start = end;
       end = temp;
@@ -138,8 +138,8 @@ public class SearchIncomeActivity extends AppCompatActivity {
     Intent intent = new Intent(this, IncomeResultsActivity.class);
     intent.putExtra("start_date", start);
     intent.putExtra("end_date", end);
-    if(source_switch.isChecked())
-    intent.putExtra("source", source.getSelectedItem().toString());
+    if (source_switch.isChecked())
+      intent.putExtra("source", source.getSelectedItem().toString());
 
     startActivity(intent);
 

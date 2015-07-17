@@ -60,7 +60,7 @@ public abstract class FabListFragment extends ListFragment implements LoaderMana
     super.onActivityCreated(savedInstanceState);
 
     view = getView();
-    listView = (ListView) view.findViewById(android.R.id.list);
+    listView = (ListView) (view != null ? view.findViewById(android.R.id.list) : null);
     listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 
     add = (FloatingActionButton) view.findViewById(R.id.fab);
@@ -86,9 +86,9 @@ public abstract class FabListFragment extends ListFragment implements LoaderMana
     super.onAttach(activity);
   }
 
-  public abstract CursorAdapter getAdapter(Context context);
+  protected abstract CursorAdapter getAdapter(Context context);
 
-  public abstract String[] getColumns();
+  protected abstract String[] getColumns();
 
   private void populate() {
 
@@ -105,9 +105,8 @@ public abstract class FabListFragment extends ListFragment implements LoaderMana
   @Override
   public Loader<Cursor> onCreateLoader(int id, Bundle args) {
 
-    CursorLoader cursorLoader = new CursorLoader(view.getContext(),
+    return new CursorLoader(view.getContext(),
         uri, getColumns(), null, null, null);
-    return cursorLoader;
   }
 
   @Override
@@ -151,7 +150,7 @@ public abstract class FabListFragment extends ListFragment implements LoaderMana
     listView.setItemChecked(index, status);
 
     long[] ids = listView.getCheckedItemIds();
-    if ((ids == null || ids.length == 0) && actionMode != null) {
+    if ((ids.length == 0) && actionMode != null) {
       actionMode.finish();
     } else if (actionMode == null) {
       AppCompatActivity activity = (AppCompatActivity) getActivity();
@@ -184,7 +183,7 @@ public abstract class FabListFragment extends ListFragment implements LoaderMana
       case R.id.action_delete:
 
         long[] ids = listView.getCheckedItemIds();
-        if (ids != null && ids.length > 0) {
+        if (ids.length > 0) {
           String[] args = new String[ids.length];
           for (int i = 0; i < ids.length; i++) {
             args[i] = String.valueOf(ids[i]);
@@ -211,7 +210,7 @@ public abstract class FabListFragment extends ListFragment implements LoaderMana
       return;
 
     long[] ids = listView.getCheckedItemIds();
-    if (ids != null && ids.length > 0) {
+    if (ids.length > 0) {
       ((MultiSelectable) adapter).clear();
       listView.clearChoices();
       getLoaderManager().restartLoader(0, null, this);

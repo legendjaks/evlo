@@ -96,7 +96,7 @@
 
         <provider
             android:name="com.sathy.evlo.provider.DatabaseProvider"
-            android:authorities="com.sathy.evlo.provider"></provider>
+            android:authorities="com.sathy.evlo.provider"/>
     </application>
 
 </manifest>

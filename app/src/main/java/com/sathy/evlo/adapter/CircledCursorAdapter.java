@@ -15,26 +15,26 @@ import java.util.Map;
  */
 public abstract class CircledCursorAdapter extends CursorAdapter implements MultiSelectable {
 
-    protected LayoutInflater inflater;
-    private Map<String, Boolean> itemsChecked;
-    private ListItemPartListener listener;
+  protected LayoutInflater inflater;
+  private Map<String, Boolean> itemsChecked;
+  private ListItemPartListener listener;
 
-    public CircledCursorAdapter(Context context, ListItemPartListener listener) {
-        super(context, null, false);
-        inflater = LayoutInflater.from(context);
-        itemsChecked = new HashMap<>();
-        this.listener = listener;
-    }
+  public CircledCursorAdapter(Context context, ListItemPartListener listener) {
+    super(context, null, false);
+    inflater = LayoutInflater.from(context);
+    itemsChecked = new HashMap<>();
+    this.listener = listener;
+  }
 
-    public void clear() {
-        itemsChecked.clear();
-    }
+  public void clear() {
+    itemsChecked.clear();
+  }
 
-    public Map<String, Boolean> getItemsChecked() {
-        return itemsChecked;
-    }
+  public Map<String, Boolean> getItemsChecked() {
+    return itemsChecked;
+  }
 
-    public ListItemPartListener getListItemPartListener() {
-        return listener;
-    }
+  public ListItemPartListener getListItemPartListener() {
+    return listener;
+  }
 }

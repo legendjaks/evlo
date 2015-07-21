@@ -20,8 +20,10 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.sathy.evlo.adapter.SectionedCircleCursorAdapter;
 import com.sathy.evlo.listener.ListItemPartListener;
 import com.sathy.evlo.listener.MultiSelectable;
+import com.twotoasters.sectioncursoradapter.SectionCursorAdapter;
 
 public abstract class CircleListActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>, ActionMode.Callback, ListItemPartListener, AdapterView.OnItemClickListener {
 
@@ -81,8 +83,23 @@ public abstract class CircleListActivity extends AppCompatActivity implements Lo
   }
 
   @Override
-  public void onItemClick(AdapterView<?> adapterView, View view, int i, long id) {
-    edit(id);
+  public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+
+    if (adapter instanceof SectionedCircleCursorAdapter) {
+      SectionedCircleCursorAdapter sectionedAdapter = (SectionedCircleCursorAdapter) adapter;
+      Object sectionObject = sectionedAdapter.getItem(position);
+      int cursorPosition = sectionedAdapter.getCursorPositionWithoutSections(position);
+
+      if (sectionedAdapter.isSection(position) && sectionObject != null) {
+        // Handle the section being clicked on.
+        return;
+      } else if (cursorPosition != SectionCursorAdapter.NO_CURSOR_POSITION) {
+        // Handle the cursor item being clicked on.
+        long _id = adapter.getItemId(position);
+        edit(_id);
+      }
+    } else
+      edit(id);
   }
 
   @Override

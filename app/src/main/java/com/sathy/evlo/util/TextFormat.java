@@ -30,6 +30,18 @@ public class TextFormat {
     return month.format(new Date()).toUpperCase();
   }
 
+  public static String[] getCurrentMonthDates() {
+    Calendar from = Calendar.getInstance();
+    from.set(Calendar.DATE, 1);
+
+    Calendar to = Calendar.getInstance();
+    to.set(Calendar.DATE, 1);
+    to.add(Calendar.MONTH, 1);
+    to.add(Calendar.DATE, -1);
+
+    return new String[]{dateValue(from), dateValue(to)};
+  }
+
   public static String toDisplayDateText(Date date) {
     return isdf.format(date);
   }

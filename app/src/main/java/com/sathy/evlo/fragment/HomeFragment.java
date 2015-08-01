@@ -40,11 +40,10 @@ import com.sathy.evlo.provider.DatabaseProvider;
 import com.sathy.evlo.util.MaterialColorGenerator;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
-import static com.sathy.evlo.util.TextFormat.dateValue;
 import static com.sathy.evlo.util.TextFormat.getCurrentMonth;
+import static com.sathy.evlo.util.TextFormat.getCurrentMonthDates;
 import static com.sathy.evlo.util.TextFormat.quotes;
 
 public class HomeFragment extends Fragment implements Searchable, LoaderManager.LoaderCallbacks<Cursor>, OnChartValueSelectedListener {
@@ -188,10 +187,12 @@ public class HomeFragment extends Fragment implements Searchable, LoaderManager.
         progress = 100;
 
       utilization.setProgress(progress);
-      if (progress >= 80)
-        utilization.setProgressDrawable(ContextCompat.getDrawable(context, R.drawable.red_progress));
-      else
+      if (progress < 80)
         utilization.setProgressDrawable(ContextCompat.getDrawable(context, R.drawable.green_progress));
+      else if (progress < 90)
+        utilization.setProgressDrawable(ContextCompat.getDrawable(context, R.drawable.yellow_progress));
+      else
+        utilization.setProgressDrawable(ContextCompat.getDrawable(context, R.drawable.red_progress));
 
       utilized.setText(currency + info.getExpense() + " utilized");
       totalAmount.setText(currency + String.valueOf(info.getIncome()));
@@ -251,18 +252,6 @@ public class HomeFragment extends Fragment implements Searchable, LoaderManager.
       cursor.close();
       cursor = null;
     }
-  }
-
-  private String[] getCurrentMonthDates() {
-    Calendar from = Calendar.getInstance();
-    from.set(Calendar.DATE, 1);
-
-    Calendar to = Calendar.getInstance();
-    to.set(Calendar.DATE, 1);
-    to.add(Calendar.MONTH, 1);
-    to.add(Calendar.DATE, -1);
-
-    return new String[]{dateValue(from), dateValue(to)};
   }
 
   @Override
